@@ -340,7 +340,7 @@ footer .row { display: flex; justify-content: space-between; align-items: center
       <p class="lead">Budget Plan is zero-based budgeting for your pocket. Every dollar gets a job before the month starts. Your data never leaves your phone.</p>
       <div class="cta-row">
         <a href="#download" class="btn-primary">Download now →</a>
-        <a href="#" class="btn-ghost">Watch 60-sec demo</a>
+        <a href="#" class="btn-ghost" id="open-demo">Watch demo</a>
       </div>
       <div class="trust">
         <span>Local-only</span>
@@ -628,6 +628,41 @@ footer .row { display: flex; justify-content: space-between; align-items: center
     <div>© 2026 · Every dollar has a job.</div>
   </div>
 </footer>
+
+<!-- ── Demo Modal ─────────────────────────────────────────────── -->
+<div id="demo-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="position:relative;width:min(900px,92vw);background:var(--bg-elevated);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6)">
+    <button id="close-demo" style="position:absolute;top:14px;right:14px;z-index:10;background:var(--bg-subtle);border:1px solid var(--border);color:var(--text-muted);font-size:18px;line-height:1;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+    <div style="position:relative;padding-bottom:62.5%;height:0">
+      <iframe id="demo-iframe" src="" frameborder="0" allowfullscreen allow="autoplay; fullscreen" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var LOOM_EMBED = 'https://www.loom.com/embed/676cb7b82b334682972a38aebffa2cfb?autoplay=1';
+  var modal = document.getElementById('demo-modal');
+  var iframe = document.getElementById('demo-iframe');
+
+  document.getElementById('open-demo').addEventListener('click', function (e) {
+    e.preventDefault();
+    iframe.src = LOOM_EMBED;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('close-demo').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+})();
+</script>
 
 </body>
 </html>
