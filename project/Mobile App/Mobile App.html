@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Budget Plan — Mobile App</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    background: #05080d;
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
+    color: #e6edf3;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(1200px 600px at 50% 0%, rgba(88,166,255,0.06), transparent 60%);
+  }
+  * { box-sizing: border-box; }
+  button { font-family: inherit; }
+  input, textarea { font-family: inherit; }
+
+  .page {
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    position: relative;
+  }
+  .header {
+    max-width: 1100px; margin: 0 auto 36px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px;
+  }
+  .title {
+    font-size: 22px; font-weight: 600; letter-spacing: -0.01em;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    font-size: 13px; color: #8b949e; margin: 0;
+  }
+  .flow-strip {
+    max-width: 1100px; margin: 0 auto 24px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 14px 16px;
+    background: rgba(21,27,35,0.6); border: 1px solid #1c2430;
+    border-radius: 12px;
+  }
+  .flow-strip-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #6e7681; margin-right: 10px; align-self: center;
+  }
+  .flow-btn {
+    appearance: none; border: 0;
+    padding: 8px 12px; border-radius: 8px;
+    background: transparent; color: #8b949e;
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    letter-spacing: 0.04em; white-space: nowrap;
+  }
+  .flow-btn:hover { background: rgba(255,255,255,0.04); color: #e6edf3; }
+  .flow-btn.active { background: #58a6ff; color: #0d1117; }
+
+  .stage {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .device-col {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 14px;
+  }
+  .device-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #6e7681;
+  }
+
+  .bp-meta-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 10px; border-radius: 999px;
+    background: rgba(63,185,80,0.12); color: #3fb950;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .bp-meta-tag .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #3fb950;
+  }
+
+  @media (max-width: 900px) {
+    .stage { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <p class="title">Budget Plan · Mobile app</p>
+        <p class="subtitle">Core first-time user flow — tap through both devices.</p>
+      </div>
+      <span class="bp-meta-tag"><span class="dot"></span>Clickable prototype</span>
+    </div>
+
+    <div id="flow-strip" class="flow-strip"></div>
+
+    <div id="root" class="stage"></div>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="../ios-frame.jsx"></script>
+  <script type="text/babel" src="../android-frame.jsx"></script>
+  <script type="text/babel" src="state.jsx"></script>
+  <script type="text/babel" src="screens.jsx"></script>
+  <script type="text/babel" src="screens-extra.jsx"></script>
+
+  <script type="text/babel">
+    const { useEffect } = React;
+
+    // Restore last screen from localStorage
+    const LS_KEY = 'bp_mobile_screen_v1';
+
+    function ScreenPersistor() {
+      const { screen, setScreen } = useAppState();
+      useEffect(() => {
+        const saved = localStorage.getItem(LS_KEY);
+        if (saved && saved !== 'welcome') setScreen(saved);
+      }, []);
+      useEffect(() => {
+        localStorage.setItem(LS_KEY, screen);
+      }, [screen]);
+      return null;
+    }
+
+    // Flow navigator strip
+    const FLOW = [
+      { id: 'welcome',  label: '01 Welcome' },
+      { id: 'income',   label: '02 Income' },
+      { id: 'allocate', label: '03 Allocate' },
+      { id: 'dashboard', label: '04 Dashboard' },
+      { id: 'category', label: '05 Over-budget' },
+      { id: 'add-tx',   label: '06 Log spend' },
+      { id: 'savings',  label: '07 Savings' },
+      { id: 'loans',    label: '08 Loans' },
+      { id: 'reset',    label: '09 Month-end' },
+      { id: 'settings', label: '10 Settings' },
+    ];
+
+    function FlowStrip() {
+      const { screen, setScreen, setActiveCategory } = useAppState();
+      return (
+        <>
+          <span className="flow-strip-label">Jump</span>
+          {FLOW.map(f => (
+            <button key={f.id} className={'flow-btn ' + (screen === f.id ? 'active' : '')}
+              onClick={() => {
+                if (f.id === 'category') setActiveCategory('gas');
+                setScreen(f.id);
+              }}>{f.label}</button>
+          ))}
+        </>
+      );
+    }
+
+    function IOSWrap() {
+      return (
+        <div className="device-col">
+          <div className="device-label">iOS · iPhone 15</div>
+          <PlatformContext.Provider value="ios">
+            <IOSDevice width={372} height={808} dark={true}>
+              <ScreenRouter />
+            </IOSDevice>
+          </PlatformContext.Provider>
+        </div>
+      );
+    }
+
+    function AndroidWrap() {
+      return (
+        <div className="device-col">
+          <div className="device-label">Android · Pixel 8</div>
+          <PlatformContext.Provider value="android">
+            <AndroidDevice width={382} height={828} dark={true}>
+              <ScreenRouter />
+            </AndroidDevice>
+          </PlatformContext.Provider>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <AppStateProvider>
+          <ScreenPersistor />
+          <FlowStripMount />
+          <IOSWrap />
+          <AndroidWrap />
+        </AppStateProvider>
+      );
+    }
+
+    // Mount flow strip separately into its own container
+    function FlowStripMount() {
+      useEffect(() => {
+        const el = document.getElementById('flow-strip');
+        if (!el._root) {
+          el._root = ReactDOM.createRoot(el);
+        }
+        // Render using the same provider value — we use a portal instead
+      }, []);
+      // Render via portal so it's within the provider
+      const el = document.getElementById('flow-strip');
+      if (!el) return null;
+      return ReactDOM.createPortal(<FlowStrip />, el);
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

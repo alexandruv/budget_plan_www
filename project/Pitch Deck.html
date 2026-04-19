@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Budget Plan — Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/tokens.css" />
+<style>
+  body { background: #000; }
+  deck-stage { --deck-design-w: 1920px; --deck-design-h: 1080px; }
+  section {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    padding: 80px 120px;
+    display: flex; flex-direction: column;
+  }
+  section.paper { background: var(--paper); color: #1a1a1a; }
+  section.ink { background: #000; }
+
+  .slide-head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 14px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 48px;
+  }
+  section.paper .slide-head { color: #6e7681; }
+  .slide-foot {
+    margin-top: auto; display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 13px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);
+  }
+  section.paper .slide-foot { color: #6e7681; }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 14px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue);
+    margin-bottom: 40px;
+  }
+  h1.hero {
+    font-size: 180px; line-height: 0.9; letter-spacing: -0.04em;
+    font-weight: 500; margin: 0;
+  }
+  h1.big {
+    font-size: 136px; line-height: 0.95; letter-spacing: -0.035em;
+    font-weight: 500; margin: 0;
+  }
+  h1.med {
+    font-size: 96px; line-height: 1; letter-spacing: -0.03em;
+    font-weight: 500; margin: 0;
+  }
+  h1 em { font-style: normal; color: var(--text-muted); }
+  section.paper h1 em { color: #6e7681; }
+
+  .sub {
+    font-size: 28px; line-height: 1.4; color: var(--text-muted);
+    max-width: 900px; font-weight: 400; letter-spacing: -0.01em;
+  }
+  section.paper .sub { color: #4a4a4a; }
+
+  /* Slide 1 — Title */
+  .title-slide {
+    padding: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 85% 20%, rgba(88,166,255,0.14), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 15% 90%, rgba(63,185,80,0.08), transparent 60%),
+      var(--bg);
+    justify-content: center;
+    padding: 80px 120px;
+  }
+  .title-slide .logo-lockup { margin-bottom: 80px; }
+  .title-slide h1 { font-size: 220px; line-height: 0.88; letter-spacing: -0.045em; font-weight: 500; margin: 0; }
+  .title-slide .tagline {
+    font-family: var(--font-mono); font-size: 18px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--text-muted); margin-top: 64px;
+  }
+  .title-slide .meta {
+    position: absolute; bottom: 80px; left: 120px; right: 120px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+
+  /* Slide 2 — Problem */
+  .stat-wall { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; margin-top: auto; }
+  .stat-wall .stat { padding: 48px 0; border-top: 1px solid var(--border); }
+  .stat-wall .stat .num {
+    font-size: 120px; font-weight: 500; letter-spacing: -0.04em;
+    line-height: 1; margin-bottom: 20px;
+  }
+  .stat-wall .stat .num.red { color: var(--red); }
+  .stat-wall .stat .num.yellow { color: var(--yellow); }
+  .stat-wall .stat .num.blue { color: var(--blue); }
+  .stat-wall .stat .lbl {
+    font-size: 18px; color: var(--text-muted); line-height: 1.4; max-width: 360px;
+  }
+  .stat-wall .stat .src {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim); margin-top: 16px;
+  }
+
+  /* Slide 3 — Solution */
+  .solution-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; flex: 1; }
+  .equation {
+    font-family: var(--font-mono); font-size: 28px; line-height: 2;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .equation .op { color: var(--text-dim); }
+  .equation .result { color: var(--green); }
+  .equation .zero { color: var(--blue); font-weight: 500; }
+
+  /* Feature grid */
+  .features {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--border); flex: 1; margin-top: 48px;
+  }
+  .feature {
+    background: var(--bg); padding: 56px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .feature .num {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .feature h3 {
+    font-size: 40px; line-height: 1.1; letter-spacing: -0.02em;
+    font-weight: 500; margin: 0;
+  }
+  .feature p { font-size: 19px; color: var(--text-muted); line-height: 1.5; margin: 0; max-width: 560px; }
+
+  /* Privacy slide */
+  .privacy-slide {
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 30%, rgba(63,185,80,0.08), transparent 60%),
+      var(--bg);
+    align-items: center; text-align: center; justify-content: center; padding: 80px;
+  }
+  .privacy-slide .shield {
+    width: 180px; height: 180px; border-radius: 50%;
+    background: var(--green-bg); display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 56px; border: 1px solid rgba(63,185,80,0.3);
+  }
+  .privacy-slide .shield .inner {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 0 14px rgba(63,185,80,0.2);
+  }
+  .privacy-slide h1 {
+    font-size: 140px; line-height: 0.95; letter-spacing: -0.04em;
+    font-weight: 500; margin: 0 0 32px;
+  }
+  .privacy-slide .chips {
+    display: flex; gap: 16px; justify-content: center; margin-top: 64px; flex-wrap: wrap;
+  }
+  .privacy-slide .chip {
+    padding: 16px 28px; border-radius: 999px; border: 1px solid var(--border);
+    font-family: var(--font-mono); font-size: 15px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .privacy-slide .chip::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+  }
+
+  /* Audience */
+  .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; flex: 1; margin-top: 48px; }
+  .audience-col { padding: 48px 56px 0 0; }
+  .audience-col + .audience-col { padding-left: 56px; border-left: 1px solid var(--border); }
+  .audience-stat {
+    font-size: 88px; font-weight: 500; letter-spacing: -0.03em; line-height: 1;
+    color: var(--blue); margin-bottom: 24px;
+  }
+  .audience-col h3 { font-size: 36px; margin: 0 0 20px; font-weight: 500; letter-spacing: -0.02em; }
+  .audience-col p { font-size: 20px; color: var(--text-muted); line-height: 1.5; max-width: 640px; }
+  .audience-col ul {
+    list-style: none; padding: 0; margin: 32px 0 0;
+    font-family: var(--font-mono); font-size: 15px; line-height: 2;
+    color: var(--text-muted); letter-spacing: 0.04em;
+  }
+  .audience-col ul li::before { content: '—  '; color: var(--blue); }
+
+  /* Compare table */
+  .compare {
+    margin-top: 48px; border-top: 1px solid var(--border);
+    flex: 1;
+  }
+  .compare-row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border); padding: 28px 0; align-items: center;
+    font-size: 20px;
+  }
+  .compare-row.head {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-dim); padding: 20px 0;
+  }
+  .compare-row .us { color: var(--blue); font-weight: 500; }
+  .compare-row .them { color: var(--text-dim); }
+  .compare-row .cell { display: flex; align-items: center; gap: 12px; }
+  .yes { color: var(--green); font-family: var(--font-mono); font-size: 18px; }
+  .no { color: var(--red); font-family: var(--font-mono); font-size: 18px; }
+  .partial { color: var(--yellow); font-family: var(--font-mono); font-size: 18px; }
+
+  /* CTA */
+  .cta-slide {
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 50%, rgba(88,166,255,0.18), transparent 60%),
+      var(--bg);
+    justify-content: center;
+  }
+  .cta-slide h1 { font-size: 180px; line-height: 0.9; letter-spacing: -0.04em; font-weight: 500; margin: 0; }
+  .cta-slide .row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: end; margin-top: 80px; }
+  .cta-slide .ask {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 24px;
+  }
+  .cta-slide .ask-amt { font-size: 72px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px; }
+  .cta-slide .ask-desc { font-size: 18px; color: var(--text-muted); line-height: 1.5; max-width: 500px; }
+  .cta-slide .links {
+    display: flex; flex-direction: column; gap: 12px;
+    font-family: var(--font-mono); font-size: 16px; color: var(--text);
+  }
+  .cta-slide .links .lbl { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+
+  /* Phone mockup for solution slide */
+  .phone {
+    width: 380px; height: 780px;
+    background: #0a0e13;
+    border-radius: 52px;
+    border: 12px solid #1c2430;
+    padding: 24px 20px;
+    display: flex; flex-direction: column;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .phone .notch {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 24px; background: #000; border-radius: 12px;
+  }
+  .phone .status-bar {
+    display: flex; justify-content: space-between; padding: 6px 16px 28px;
+    font-family: var(--font-mono); font-size: 13px; color: var(--text);
+  }
+  .phone h4 {
+    font-size: 13px; font-family: var(--font-mono); letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim); margin: 0 0 12px;
+  }
+  .phone .bal {
+    font-size: 36px; font-weight: 500; letter-spacing: -0.02em;
+    font-family: var(--font-mono); color: var(--text); margin-bottom: 4px;
+  }
+  .phone .bal .slash { color: var(--text-dim); font-weight: 400; }
+  .phone .bal-sub { font-size: 13px; color: var(--green); margin-bottom: 28px; }
+  .phone .bal-sub::before { content: '● '; }
+  .phone .cat-list { display: flex; flex-direction: column; gap: 12px; }
+  .phone .cat {
+    background: var(--bg-elevated); border-radius: 12px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .phone .cat-top { display: flex; justify-content: space-between; font-size: 15px; }
+  .phone .cat-top .name { font-weight: 500; }
+  .phone .cat-top .amt { font-family: var(--font-mono); color: var(--text-muted); font-size: 13px; }
+  .phone .cat-bar { height: 4px; background: var(--bg-subtle); border-radius: 2px; overflow: hidden; }
+  .phone .cat-bar > span { display: block; height: 100%; border-radius: 2px; }
+  .phone .cat.green .cat-bar > span { background: var(--green); width: 42%; }
+  .phone .cat.yellow .cat-bar > span { background: var(--yellow); width: 78%; }
+  .phone .cat.red .cat-bar > span { background: var(--red); width: 100%; }
+  .phone .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .phone .cat.green .dot { background: var(--green); }
+  .phone .cat.yellow .dot { background: var(--yellow); }
+  .phone .cat.red .dot { background: var(--red); }
+
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- SLIDE 1 — TITLE -->
+  <section class="title-slide" data-label="Title">
+    <div class="slide-head">
+      <div id="title-logo"></div>
+      <span>Seed · 2026</span>
+    </div>
+    <h1>Know where<br/>your money&nbsp;goes.</h1>
+    <div class="tagline">Budget Plan · Zero-based budgeting · Privacy-first</div>
+    <div class="slide-foot">
+      <span>budgetplan.app</span>
+      <span>01 / 09</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — PROBLEM -->
+  <section data-label="Problem">
+    <div class="slide-head">
+      <span id="logo-02"></span>
+      <span>The Problem</span>
+    </div>
+    <div class="eyebrow">01 · The Problem</div>
+    <h1 class="big">The #1 money question<br/>is still <em>"where did it go?"</em></h1>
+    <div class="stat-wall">
+      <div class="stat">
+        <div class="num red">64%</div>
+        <div class="lbl">of Americans live paycheck to paycheck</div>
+        <div class="src">Bank of America Institute · 2024</div>
+      </div>
+      <div class="stat">
+        <div class="num yellow">$7.4K</div>
+        <div class="lbl">average overspend per household annually on untracked categories</div>
+        <div class="src">Bureau of Labor Statistics</div>
+      </div>
+      <div class="stat">
+        <div class="num blue">3 in 4</div>
+        <div class="lbl">adults don't track their spending with any method at all</div>
+        <div class="src">Debt.com Annual Survey</div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan</span><span>02 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 3 — SOLUTION -->
+  <section data-label="Solution">
+    <div class="slide-head">
+      <span id="logo-03"></span>
+      <span>The Solution</span>
+    </div>
+    <div class="eyebrow">02 · The Solution</div>
+    <h1 class="big" style="margin-bottom: 64px">Zero-based budgeting,<br/><em>radically simplified.</em></h1>
+    <div class="solution-row">
+      <div>
+        <p class="sub" style="margin-bottom: 48px">Before the month starts, every dollar of income gets assigned a job. When the total unassigned reaches zero, you're done. No surprises. No "where did it go." Just jobs and their status.</p>
+        <div class="equation">
+          Income<br/>
+          <span class="op">−</span>&nbsp;Rent, Groceries, Gas, ...<br/>
+          <span class="op">=</span>&nbsp;<span class="zero">$0.00</span> unassigned<br/>
+          <span class="op">→</span>&nbsp;<span class="result">Month begins.</span>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <div class="phone" id="phone-solution"></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan</span><span>03 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 4 — FEATURES -->
+  <section data-label="Features">
+    <div class="slide-head">
+      <span id="logo-04"></span>
+      <span>Key Features</span>
+    </div>
+    <div class="eyebrow">03 · What's Inside</div>
+    <h1 class="big">Four primitives.<br/>Nothing else.</h1>
+    <div class="features">
+      <div class="feature">
+        <div class="num">01 · Allocation</div>
+        <h3>Every dollar gets a job<br/>before the month starts.</h3>
+        <p>Assign 100% of income to categories. Unassigned must equal $0.00 before you can hit "Start Month."</p>
+      </div>
+      <div class="feature">
+        <div class="num">02 · Status</div>
+        <h3>Green, yellow, red —<br/>always visible.</h3>
+        <p>Every category shows pacing in real-time. No scrolling through transactions to figure out how you're doing.</p>
+      </div>
+      <div class="feature">
+        <div class="num">03 · Borrowing</div>
+        <h3>Over-budget? Borrow,<br/>don't bury it.</h3>
+        <p>When a category goes red, the app prompts you to borrow from another, or log a tracked loan to yourself.</p>
+      </div>
+      <div class="feature">
+        <div class="num">04 · Reset</div>
+        <h3>Leftovers sweep<br/>into savings. Every month.</h3>
+        <p>Month ends, balances zero out, unspent allocation auto-moves to savings. Clean slate, compounding backbone.</p>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan</span><span>04 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 5 — PRIVACY -->
+  <section class="privacy-slide" data-label="Privacy">
+    <div class="slide-head" style="position:absolute;top:80px;left:120px;right:120px;margin:0">
+      <span id="logo-05"></span>
+      <span>Differentiator</span>
+    </div>
+    <div style="max-width:1400px">
+      <div class="shield"><div class="inner"></div></div>
+      <h1>Your data never<br/>leaves your phone.</h1>
+      <p class="sub" style="margin:0 auto;max-width:900px">No cloud sync. No account. No analytics SDK. No tracking pixel. If our servers went down tomorrow, your budget wouldn't notice.</p>
+      <div class="chips">
+        <div class="chip">Local-only storage</div>
+        <div class="chip">No account required</div>
+        <div class="chip">No third-party SDKs</div>
+        <div class="chip">Open audit log</div>
+      </div>
+    </div>
+    <div class="slide-foot" style="position:absolute;bottom:80px;left:120px;right:120px">
+      <span>Budget Plan</span><span>05 / 09</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 — AUDIENCE -->
+  <section data-label="Audience">
+    <div class="slide-head">
+      <span id="logo-06"></span>
+      <span>Who This Is For</span>
+    </div>
+    <div class="eyebrow">04 · Target</div>
+    <h1 class="big">Built for people<br/>who <em>want</em> structure.</h1>
+    <div class="audience-grid">
+      <div class="audience-col">
+        <div class="audience-stat">118M</div>
+        <h3>US adults overspend monthly</h3>
+        <p>Our initial wedge: 18–50, income $20K–$150K, chronically paycheck-to-paycheck, privacy-conscious, ready to embrace discipline.</p>
+        <ul>
+          <li>Ages 18–50</li>
+          <li>Income $20K–$150K</li>
+          <li>iOS + Android (Flutter)</li>
+        </ul>
+      </div>
+      <div class="audience-col">
+        <div class="audience-stat">$4.6B</div>
+        <h3>Personal finance apps, 2028</h3>
+        <p>The category is growing 12% CAGR. But existing leaders monetize through bank data — a moat we intentionally don't cross. Privacy is our wedge.</p>
+        <ul>
+          <li>Freemium + one-time unlock</li>
+          <li>No data monetization, ever</li>
+          <li>Beta open: Q3 2026</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan</span><span>06 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 7 — COMPETITIVE -->
+  <section data-label="Competitive">
+    <div class="slide-head">
+      <span id="logo-07"></span>
+      <span>Competitive</span>
+    </div>
+    <div class="eyebrow">05 · How we're different</div>
+    <h1 class="big">Everyone else pulls<br/>your bank data.<em> We don't.</em></h1>
+    <div class="compare">
+      <div class="compare-row head">
+        <span>Capability</span>
+        <span class="us">Budget Plan</span>
+        <span class="them">Typical app A</span>
+        <span class="them">Typical app B</span>
+      </div>
+      <div class="compare-row">
+        <span>Zero-based budgeting</span>
+        <span class="cell us"><span class="yes">●</span> Required</span>
+        <span class="cell them"><span class="partial">◐</span> Optional</span>
+        <span class="cell them"><span class="no">○</span> No</span>
+      </div>
+      <div class="compare-row">
+        <span>Data stays on device</span>
+        <span class="cell us"><span class="yes">●</span> Always</span>
+        <span class="cell them"><span class="no">○</span> Cloud sync</span>
+        <span class="cell them"><span class="no">○</span> Bank linking</span>
+      </div>
+      <div class="compare-row">
+        <span>Third-party analytics</span>
+        <span class="cell us"><span class="yes">●</span> None</span>
+        <span class="cell them"><span class="no">○</span> Yes</span>
+        <span class="cell them"><span class="no">○</span> Yes</span>
+      </div>
+      <div class="compare-row">
+        <span>Over-budget borrowing flow</span>
+        <span class="cell us"><span class="yes">●</span> Built-in</span>
+        <span class="cell them"><span class="no">○</span> No</span>
+        <span class="cell them"><span class="partial">◐</span> Manual</span>
+      </div>
+      <div class="compare-row">
+        <span>Monthly savings sweep</span>
+        <span class="cell us"><span class="yes">●</span> Automatic</span>
+        <span class="cell them"><span class="partial">◐</span> Goal-based</span>
+        <span class="cell them"><span class="no">○</span> No</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan</span><span>07 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 8 — TRACTION / VISION -->
+  <section class="paper" data-label="Traction">
+    <div class="slide-head">
+      <span id="logo-08"></span>
+      <span>Traction & Vision</span>
+    </div>
+    <div class="eyebrow" style="color:#1f6feb">06 · Where we are</div>
+    <h1 class="big" style="color:#1a1a1a">MVP shipped.<br/><em style="color:#6e7681">Now we grow.</em></h1>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:80px;margin-top:64px;flex:1">
+      <div>
+        <div style="font-size:96px;font-weight:500;letter-spacing:-0.03em;color:#1a1a1a;line-height:1">12K</div>
+        <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#6e7681;margin-top:16px">Waitlist signups</div>
+        <p style="font-size:18px;color:#4a4a4a;line-height:1.5;margin-top:16px">Pre-launch, no paid acquisition. Organic from HN + two TikTok creators.</p>
+      </div>
+      <div>
+        <div style="font-size:96px;font-weight:500;letter-spacing:-0.03em;color:#1a1a1a;line-height:1">4.9<span style="color:#6e7681">★</span></div>
+        <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#6e7681;margin-top:16px">Closed beta rating · 340 testers</div>
+        <p style="font-size:18px;color:#4a4a4a;line-height:1.5;margin-top:16px">"Finally a budget app I don't have to fight." — beta tester, iOS.</p>
+      </div>
+      <div>
+        <div style="font-size:96px;font-weight:500;letter-spacing:-0.03em;color:#1a1a1a;line-height:1">68%</div>
+        <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#6e7681;margin-top:16px">D30 retention · closed beta</div>
+        <p style="font-size:18px;color:#4a4a4a;line-height:1.5;margin-top:16px">Vs. ~22% category average. The constraint is the product.</p>
+      </div>
+    </div>
+    <div class="slide-foot" style="color:#6e7681"><span>Budget Plan</span><span>08 / 09</span></div>
+  </section>
+
+  <!-- SLIDE 9 — CTA -->
+  <section class="cta-slide" data-label="Ask">
+    <div class="slide-head">
+      <span id="logo-09"></span>
+      <span>The Ask</span>
+    </div>
+    <div class="eyebrow">07 · Join us</div>
+    <h1>Every dollar,<br/>a job.<em> Every user,<br/>in control.</em></h1>
+    <div class="row">
+      <div>
+        <div class="ask">The ask</div>
+        <div class="ask-amt">$2.4M · Seed</div>
+        <div class="ask-desc">18-month runway. Team of 6. Goals: 500K downloads, 100K MAU, launch Pro tier.</div>
+      </div>
+      <div class="links">
+        <div>
+          <div class="lbl">Contact</div>
+          founders@budgetplan.app
+        </div>
+        <div>
+          <div class="lbl">Demo</div>
+          budgetplan.app/beta
+        </div>
+        <div>
+          <div class="lbl">Deck live</div>
+          budgetplan.app/deck
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Budget Plan · 2026</span><span>09 / 09</span></div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="shared/logo.jsx"></script>
+<script type="text/babel">
+  const mountDeck = (id, el) => {
+    const n = document.getElementById(id);
+    if (n) ReactDOM.createRoot(n).render(el);
+  };
+  mountDeck('title-logo', <BPWordmark height={44} color="#e6edf3" markColor="#58a6ff" />);
+  ['logo-02','logo-03','logo-04','logo-05','logo-06','logo-07','logo-09'].forEach(id =>
+    mountDeck(id, <BPWordmark height={22} color="#e6edf3" markColor="#58a6ff" />));
+  mountDeck('logo-08', <BPWordmark height={22} color="#1a1a1a" markColor="#1f6feb" />);
+
+  // Phone mockup for Solution slide
+  const SolutionPhone = () => (
+    <>
+      <div className="notch"></div>
+      <div className="status-bar"><span>9:41</span><span>●●●●</span></div>
+      <div style={{padding:'0 4px'}}>
+        <h4>April 2026</h4>
+        <div className="bal"><span>$4,280.00</span><span className="slash"> / </span><span>$4,280.00</span></div>
+        <div className="bal-sub">$0.00 unassigned · ready to start</div>
+        <h4>Categories</h4>
+        <div className="cat-list">
+          <div className="cat green">
+            <div className="cat-top"><span className="name"><span className="dot"></span>Groceries</span><span className="amt">$126 / $300</span></div>
+            <div className="cat-bar"><span></span></div>
+          </div>
+          <div className="cat yellow">
+            <div className="cat-top"><span className="name"><span className="dot"></span>Dining Out</span><span className="amt">$117 / $150</span></div>
+            <div className="cat-bar"><span></span></div>
+          </div>
+          <div className="cat red">
+            <div className="cat-top"><span className="name"><span className="dot"></span>Gas</span><span className="amt">$212 / $180</span></div>
+            <div className="cat-bar"><span></span></div>
+          </div>
+          <div className="cat green">
+            <div className="cat-top"><span className="name"><span className="dot"></span>Subscriptions</span><span className="amt">$42 / $120</span></div>
+            <div className="cat-bar"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+  mountDeck('phone-solution', <SolutionPhone />);
+</script>
+
+</body>
+</html>

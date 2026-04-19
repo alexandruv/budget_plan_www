@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Budget Plan — Social Ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/tokens.css" />
+<style>
+  body {
+    background: #0a0d12;
+    padding: 64px 56px 120px;
+    color: var(--text);
+  }
+  .page-head {
+    max-width: 1400px; margin: 0 auto 64px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .page-head h1 {
+    font-size: 56px; letter-spacing: -0.03em; font-weight: 500;
+    margin: 0 0 8px;
+  }
+  .page-head .lead { color: var(--text-muted); font-size: 17px; max-width: 600px; }
+  .kicker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+
+  .section-head {
+    max-width: 1400px; margin: 80px auto 24px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .section-head h2 {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 500; margin: 0;
+  }
+  .section-head .meta { color: var(--text-dim); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; }
+
+  .ad-caption {
+    max-width: 1400px; margin: 0 auto 28px;
+    display: grid; grid-template-columns: 200px 1fr; gap: 32px;
+    font-size: 14px; color: var(--text-muted);
+  }
+  .ad-caption .copy-block { background: var(--bg-elevated); border-radius: 10px; padding: 16px 20px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--text); border: 1px solid var(--border); }
+  .ad-caption .copy-block em { color: var(--text-dim); font-style: normal; }
+
+  /* Stories row — 3 variations */
+  .stories-row { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .story {
+    aspect-ratio: 1080/1920;
+    border-radius: 18px; overflow: hidden; position: relative;
+    font-family: var(--font-body);
+  }
+
+  /* Feed ads */
+  .feed-row { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .feed {
+    aspect-ratio: 1200/628;
+    border-radius: 14px; overflow: hidden; position: relative;
+    font-family: var(--font-body);
+  }
+
+  /* Twitter / X */
+  .x-row { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .x-ad {
+    aspect-ratio: 1024/512;
+    border-radius: 14px; overflow: hidden; position: relative;
+    font-family: var(--font-body);
+  }
+
+  /* ── Story 1: Bold typographic problem ── */
+  .story.s1 {
+    background: var(--bg);
+    padding: 72px 56px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .story.s1 .eyebrow {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--red);
+  }
+  .story.s1 h2 {
+    font-size: 76px; line-height: 0.98; letter-spacing: -0.035em;
+    font-weight: 500; margin: 24px 0 0;
+  }
+  .story.s1 h2 em { font-style: normal; color: var(--text-muted); }
+  .story.s1 .under {
+    margin-top: 32px; font-size: 20px; line-height: 1.4;
+    color: var(--text-muted); max-width: 420px;
+  }
+  .story.s1 .cta {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text);
+  }
+  .story.s1 .arrow {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--blue); color: #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+
+  /* ── Story 2: Numbers / allocation ── */
+  .story.s2 {
+    background:
+      radial-gradient(ellipse 90% 50% at 50% 110%, rgba(88,166,255,0.22), transparent 60%),
+      var(--bg);
+    padding: 72px 56px;
+    display: flex; flex-direction: column;
+  }
+  .story.s2 .top { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  .story.s2 .amt {
+    font-family: var(--font-mono); font-size: 100px; font-weight: 500;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .story.s2 .amt .s { color: var(--text-dim); font-weight: 400; }
+  .story.s2 .lbl { margin-top: 16px; font-family: var(--font-mono); font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); }
+  .story.s2 .lbl::before { content: '● '; }
+  .story.s2 h2 {
+    font-size: 64px; line-height: 1; letter-spacing: -0.03em;
+    font-weight: 500; margin: 80px 0 0; text-align: center;
+  }
+  .story.s2 h2 em { font-style: normal; color: var(--text-muted); }
+  .story.s2 .foot {
+    margin-top: auto;
+    padding-top: 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  .story.s2 .foot .pill {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: 999px; padding: 10px 18px; color: var(--text);
+  }
+
+  /* ── Story 3: Privacy ── */
+  .story.s3 {
+    background: var(--paper); color: #0d1117;
+    padding: 72px 56px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .story.s3 .badge {
+    display: inline-flex; padding: 10px 18px; border-radius: 999px;
+    background: rgba(13,17,23,0.08);
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; align-self: flex-start;
+  }
+  .story.s3 h2 {
+    font-size: 80px; line-height: 0.95; letter-spacing: -0.04em;
+    font-weight: 500; margin: 48px 0 0;
+  }
+  .story.s3 h2 em { font-style: normal; color: #6e7681; }
+  .story.s3 .sub { font-size: 20px; line-height: 1.4; color: #4a4a4a; margin-top: 32px; max-width: 420px; }
+  .story.s3 .cta {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .story.s3 .cta .btn {
+    background: #0d1117; color: #fff; padding: 16px 28px;
+    border-radius: 999px; display: inline-flex; align-items: center; gap: 10px;
+  }
+
+  /* ── LinkedIn feed (1200x628) ── */
+  .feed.linkedin {
+    background: var(--bg);
+    padding: 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;
+  }
+  .feed.linkedin .left .eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .feed.linkedin h2 {
+    font-size: 52px; line-height: 1; letter-spacing: -0.025em; font-weight: 500;
+    margin: 16px 0 20px;
+  }
+  .feed.linkedin p { font-size: 16px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+  .feed.linkedin .cta {
+    margin-top: 24px; display: inline-flex; padding: 12px 22px;
+    background: var(--blue); color: #0d1117; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  }
+  .feed.linkedin .right {
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; font-family: var(--font-mono); font-size: 13px;
+  }
+  .feed.linkedin .li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .feed.linkedin .li:last-child { border-bottom: 0; }
+  .feed.linkedin .li .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; vertical-align: middle; }
+  .feed.linkedin .total {
+    display: flex; justify-content: space-between; padding: 16px 0 0;
+    color: var(--green); font-weight: 500;
+  }
+
+  /* ── Facebook feed (1200x628) ── */
+  .feed.facebook {
+    background: var(--bg);
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .feed.facebook .left {
+    padding: 56px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .feed.facebook .eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .feed.facebook h2 {
+    font-size: 60px; line-height: 0.98; letter-spacing: -0.03em; font-weight: 500;
+    margin: 20px 0 0;
+  }
+  .feed.facebook h2 em { font-style: normal; color: var(--text-muted); }
+  .feed.facebook .foot-cta {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .feed.facebook .foot-cta .btn {
+    background: var(--blue); color: #0d1117; padding: 12px 20px; border-radius: 999px;
+  }
+  .feed.facebook .right {
+    background:
+      radial-gradient(circle at 70% 30%, rgba(88,166,255,0.18), transparent 55%),
+      #0a0d12;
+    padding: 56px 40px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qmark {
+    font-size: 240px; line-height: 1; font-weight: 500; letter-spacing: -0.06em;
+    color: var(--text); position: relative;
+  }
+  .qmark .dot { color: var(--red); }
+  .qmark::after {
+    content: '→ answered.'; position: absolute; bottom: 10px; left: 100%; white-space: nowrap;
+    font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--green); padding-left: 20px;
+  }
+
+  /* ── X / Twitter (1024x512) ── */
+  .x-ad.main {
+    background: var(--bg);
+    padding: 48px 56px; display: grid; grid-template-columns: 1.3fr 1fr;
+    align-items: center; gap: 40px;
+  }
+  .x-ad.main h2 {
+    font-size: 64px; line-height: 0.98; letter-spacing: -0.035em; font-weight: 500;
+    margin: 0;
+  }
+  .x-ad.main h2 em { font-style: normal; color: var(--text-muted); }
+  .x-ad.main .sub { font-size: 16px; color: var(--text-muted); margin: 20px 0 0; max-width: 380px; }
+  .x-ad.main .cta {
+    display: inline-flex; margin-top: 20px; padding: 10px 18px;
+    background: var(--blue); color: #0d1117;
+    border-radius: 999px; font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  }
+  .x-ad.main .viz {
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 24px; font-family: var(--font-mono); font-size: 14px; color: var(--text-muted);
+  }
+  .x-ad.main .viz .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .x-ad.main .viz .row:last-child { border-bottom: 0; }
+  .x-ad.main .viz .row .v { color: var(--text); }
+
+  .logo-wrap { display: flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div>
+    <div class="kicker">Budget Plan · Social Ad Set</div>
+    <h1>Stop guessing.<br/>Start allocating.</h1>
+    <div class="lead">One consistent visual system across IG Stories, LinkedIn, Facebook, and X. Every ad leads with the same posture: direct, disciplined, calm.</div>
+  </div>
+  <div class="kicker">v1.0 · 2026</div>
+</div>
+
+<!-- INSTAGRAM STORIES -->
+<div class="section-head">
+  <h2>Instagram Stories · 1080×1920</h2>
+  <span class="meta">3 variations · problem → solution → privacy</span>
+</div>
+
+<div class="ad-caption">
+  <div>
+    <div class="kicker" style="color:var(--text-muted);margin-bottom:8px">Caption</div>
+    <div style="color:var(--text-dim);font-size:13px">Problem-led. Short, sharp.</div>
+  </div>
+  <div class="copy-block">
+    Ran out of money before the end of the month? <em>Again?</em><br/>
+    Budget Plan assigns every dollar a job before you can spend it.<br/>
+    <em>→ Link in bio.</em>
+  </div>
+</div>
+
+<div class="stories-row">
+  <div class="story s1">
+    <div>
+      <div class="eyebrow">● Over-budget</div>
+      <h2>Where did<br/>the money <em>go?</em></h2>
+      <p class="under">If you have to ask, you need Budget Plan.</p>
+    </div>
+    <div class="cta">
+      <span id="ig1-logo"></span>
+      <span class="arrow">↗</span>
+    </div>
+  </div>
+
+  <div class="story s2">
+    <div class="top">
+      <div class="amt">$0.00</div>
+      <div class="lbl">Unassigned</div>
+      <h2>Every dollar<br/>has a job.</h2>
+    </div>
+    <div class="foot">
+      <span id="ig2-logo"></span>
+      <span class="pill">Try free →</span>
+    </div>
+  </div>
+
+  <div class="story s3">
+    <div>
+      <span class="badge">● Privacy-first</span>
+      <h2>Your data<br/>never leaves<br/>your phone.</h2>
+      <p class="sub">No cloud. No account. No tracking. Ever.</p>
+    </div>
+    <div class="cta">
+      <span id="ig3-logo"></span>
+      <span class="btn">Get it →</span>
+    </div>
+  </div>
+</div>
+
+<!-- LINKEDIN -->
+<div class="section-head">
+  <h2>LinkedIn Feed · 1200×628</h2>
+  <span class="meta">Professional · product-forward</span>
+</div>
+<div class="ad-caption">
+  <div>
+    <div class="kicker" style="color:var(--text-muted);margin-bottom:8px">Post copy</div>
+  </div>
+  <div class="copy-block">
+    The zero-based method forced Fortune 500 CFOs to justify every line. Now it lives on your phone.<br/>
+    Budget Plan is a privacy-first budgeting app built on one rule: <em>every dollar gets a job before the month starts.</em><br/>
+    No cloud sync. No bank linking. 100% on-device. #PersonalFinance #Privacy
+  </div>
+</div>
+<div class="feed-row">
+  <div class="feed linkedin">
+    <div class="left">
+      <div class="eyebrow">Zero-based budgeting</div>
+      <h2>A method<br/>with a spine.</h2>
+      <p>Every dollar gets a job before the month starts — and "Unassigned" has to read zero before you can hit Start.</p>
+      <div class="cta">Try Budget Plan →</div>
+    </div>
+    <div class="right">
+      <div style="color:var(--text-muted);margin-bottom:6px">April 2026 · allocation</div>
+      <div class="li"><span><span class="dot" style="background:var(--green)"></span>Rent</span><span>$1,600</span></div>
+      <div class="li"><span><span class="dot" style="background:var(--green)"></span>Groceries</span><span>$600</span></div>
+      <div class="li"><span><span class="dot" style="background:var(--green)"></span>Transit</span><span>$180</span></div>
+      <div class="li"><span><span class="dot" style="background:var(--yellow)"></span>Dining</span><span>$150</span></div>
+      <div class="li"><span><span class="dot" style="background:var(--blue)"></span>Savings</span><span>$1,750</span></div>
+      <div class="total"><span>Unassigned</span><span>$0.00</span></div>
+    </div>
+  </div>
+
+  <!-- FACEBOOK -->
+  <div class="feed facebook">
+    <div class="left">
+      <div>
+        <div class="eyebrow">● Budget Plan</div>
+        <h2>Know where<br/>your money<br/><em>goes.</em></h2>
+      </div>
+      <div class="foot-cta">
+        <span id="fb-logo"></span>
+        <span class="btn">Download →</span>
+      </div>
+    </div>
+    <div class="right">
+      <div class="qmark">?<span class="dot">.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ad-caption" style="margin-top:48px">
+  <div>
+    <div class="kicker" style="color:var(--text-muted);margin-bottom:8px">Facebook caption</div>
+  </div>
+  <div class="copy-block">
+    That question costs you $7,400 a year, on average. Budget Plan is how you stop asking it.<br/>
+    Zero-based budgeting, now for your pocket. Private. Disciplined. Simple.
+  </div>
+</div>
+
+<!-- X / TWITTER -->
+<div class="section-head">
+  <h2>X / Twitter · 1024×512</h2>
+  <span class="meta">Snappy · discipline-forward</span>
+</div>
+<div class="ad-caption">
+  <div>
+    <div class="kicker" style="color:var(--text-muted);margin-bottom:8px">Tweet</div>
+  </div>
+  <div class="copy-block">
+    Budgeting apps that cheer you on are lying to you.<br/>
+    Budget Plan won't. Every dollar has a job. Unassigned must read $0. That's it.<br/>
+    <em>Private. Local. Disciplined. → budgetplan.app</em>
+  </div>
+</div>
+<div class="x-row">
+  <div class="x-ad main">
+    <div>
+      <div id="x-logo" style="margin-bottom:28px"></div>
+      <h2>Budgets that<br/><em>apologize</em> for you<br/>aren't budgets.</h2>
+      <p class="sub">Budget Plan is zero-based. You assign every dollar. The app just keeps score.</p>
+      <div class="cta">Get it → budgetplan.app</div>
+    </div>
+    <div class="viz">
+      <div style="color:var(--text-dim);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;font-size:11px">April</div>
+      <div class="row"><span>Income</span><span class="v">$4,280</span></div>
+      <div class="row"><span>Assigned</span><span class="v">$4,280</span></div>
+      <div class="row"><span>Unassigned</span><span style="color:var(--green)">$0.00 ●</span></div>
+      <div class="row"><span>Over-budget</span><span style="color:var(--red)">—</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="shared/logo.jsx"></script>
+<script type="text/babel">
+  const mount = (id, el) => { const n = document.getElementById(id); if (n) ReactDOM.createRoot(n).render(el); };
+  mount('ig1-logo', <BPWordmark height={18} color="#e6edf3" markColor="#58a6ff" />);
+  mount('ig2-logo', <BPWordmark height={18} color="#e6edf3" markColor="#58a6ff" />);
+  mount('ig3-logo', <BPWordmark height={18} color="#0d1117" markColor="#1f6feb" />);
+  mount('fb-logo',  <BPWordmark height={20} color="#e6edf3" markColor="#58a6ff" />);
+  mount('x-logo',   <BPWordmark height={22} color="#e6edf3" markColor="#58a6ff" />);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Budget Plan — Marketing Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/tokens.css" />
+<style>
+  body {
+    min-height: 100vh;
+    padding: 80px 72px 120px;
+    max-width: 1440px; margin: 0 auto;
+    background:
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(88,166,255,0.1), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, rgba(63,185,80,0.05), transparent 60%),
+      var(--bg);
+  }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 64px;
+  }
+  .kicker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  h1 {
+    font-size: 96px; line-height: 0.9; letter-spacing: -0.04em;
+    font-weight: 500; margin: 40px 0 24px; max-width: 1100px;
+  }
+  h1 em { font-style: normal; color: var(--text-muted); }
+  .lead {
+    font-size: 20px; line-height: 1.5; color: var(--text-muted);
+    max-width: 720px; margin-bottom: 72px;
+  }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: 16px;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    min-height: 260px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { border-color: var(--blue-deep); background: #182030; transform: translateY(-2px); }
+  .card .num {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .card h2 {
+    font-size: 36px; line-height: 1.05; letter-spacing: -0.02em;
+    font-weight: 500; margin: 0;
+  }
+  .card p { font-size: 15px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+  .card .foot {
+    margin-top: auto; display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  .card .foot .arrow { color: var(--blue); font-size: 16px; }
+
+  footer {
+    margin-top: 96px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div id="top-logo"></div>
+  <span class="kicker">Marketing Package · v1.0</span>
+</div>
+
+<div class="kicker" style="color:var(--blue)">04 deliverables · One cohesive system</div>
+<h1>Know where your<br/>money <em>goes.</em></h1>
+<p class="lead">The complete marketing package for Budget Plan — a privacy-first, zero-based budgeting app. One brand system, one visual language, four production-ready surfaces.</p>
+
+<div class="grid">
+  <a class="card" href="Brand System.html">
+    <div class="num">01 · Foundation</div>
+    <h2>Brand System</h2>
+    <p>Logo, color palette, typography, status system, app icon, and voice guidelines.</p>
+    <div class="foot"><span>Brand System.html</span><span class="arrow">→</span></div>
+  </a>
+  <a class="card" href="Pitch Deck.html">
+    <div class="num">02 · Investor</div>
+    <h2>Pitch Deck</h2>
+    <p>9 slides · problem, solution, privacy, audience, competitive, traction, ask. 1920×1080.</p>
+    <div class="foot"><span>Pitch Deck.html</span><span class="arrow">→</span></div>
+  </a>
+  <a class="card" href="Social Ads.html">
+    <div class="num">03 · Social</div>
+    <h2>Social Ad Set</h2>
+    <p>Instagram Stories (3 variations), LinkedIn feed, Facebook feed, and X/Twitter.</p>
+    <div class="foot"><span>Social Ads.html</span><span class="arrow">→</span></div>
+  </a>
+  <a class="card" href="Website.html">
+    <div class="num">04 · Web</div>
+    <h2>Website</h2>
+    <p>Hero, product mockups in device frames, feature cards, trust indicators, screenshot carousel, CTA.</p>
+    <div class="foot"><span>Website.html</span><span class="arrow">→</span></div>
+  </a>
+</div>
+
+<footer>
+  <span>Budget Plan · Marketing Package 2026</span>
+  <span>Every dollar has a job.</span>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="shared/logo.jsx"></script>
+<script type="text/babel">
+  const n = document.getElementById('top-logo');
+  if (n) ReactDOM.createRoot(n).render(<BPWordmark height={28} color="#e6edf3" markColor="#58a6ff" />);
+</script>
+
+</body>
+</html>

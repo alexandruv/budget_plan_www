@@ -1,0 +1,56 @@
+/* Budget Plan — Design Tokens */
+:root {
+  /* Base */
+  --bg: #0d1117;
+  --bg-elevated: #151b23;
+  --bg-subtle: #1c2430;
+  --surface: #1f2733;
+  --border: #2a3441;
+  --border-strong: #3a4655;
+
+  /* Text */
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --text-dim: #6e7681;
+
+  /* Brand */
+  --blue: #58a6ff;
+  --blue-dim: #388bfd;
+  --blue-deep: #1f6feb;
+
+  /* Status (muted, sophisticated) */
+  --green: #3fb950;
+  --green-bg: rgba(63, 185, 80, 0.12);
+  --yellow: #d29922;
+  --yellow-bg: rgba(210, 153, 34, 0.12);
+  --red: #f85149;
+  --red-bg: rgba(248, 81, 73, 0.12);
+
+  /* Accents */
+  --warm: #e8c07d;
+  --paper: #f5f3ee;
+
+  /* Type */
+  --font-display: "Geist", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum"; }
+.tnum { font-variant-numeric: tabular-nums; }

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Budget Plan — Brand System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/tokens.css" />
+<style>
+  body { padding: 64px 72px 120px; max-width: 1440px; margin: 0 auto; }
+
+  .topbar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border);
+    margin-bottom: 56px;
+  }
+  .kicker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  h1 {
+    font-size: 72px; line-height: 0.95; letter-spacing: -0.035em;
+    font-weight: 500; margin: 32px 0 16px;
+  }
+  h1 em { font-style: normal; color: var(--text-muted); }
+  .lead {
+    font-size: 20px; line-height: 1.5; color: var(--text-muted);
+    max-width: 640px; font-weight: 400;
+  }
+
+  section { margin-top: 96px; }
+  .sec-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .sec-head h2 {
+    font-size: 14px; font-weight: 500; margin: 0;
+    font-family: var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .sec-head .idx { color: var(--text-dim); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; }
+
+  /* Logo section */
+  .logo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  .panel {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 40px; position: relative;
+    overflow: hidden;
+  }
+  .panel.light { background: var(--paper); color: #1a1a1a; border-color: transparent; }
+  .panel-label {
+    position: absolute; top: 20px; left: 20px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  .panel.light .panel-label { color: #8b8b8b; }
+  .panel .center { display: flex; align-items: center; justify-content: center; min-height: 240px; }
+  .panel .lead-title {
+    font-size: 13px; color: var(--text-muted); font-family: var(--font-mono);
+    letter-spacing: 0.05em; margin-bottom: 8px; text-transform: uppercase;
+  }
+  .panel .lead-meta { font-size: 14px; color: var(--text-muted); margin-top: 12px; }
+
+  .logo-variants { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .logo-tile {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--r-md); padding: 28px 20px; text-align: center;
+    display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center;
+    min-height: 150px;
+  }
+  .logo-tile.light { background: var(--paper); color: #1a1a1a; border-color: transparent; }
+  .logo-tile.blue { background: var(--blue-deep); color: white; border-color: transparent; }
+  .logo-tile.green { background: var(--green); color: #0d1117; border-color: transparent; }
+  .logo-tile small {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.6;
+  }
+
+  /* Color palette */
+  .palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .swatch {
+    border-radius: var(--r-md); padding: 24px 20px; aspect-ratio: 1/1.15;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border: 1px solid transparent;
+  }
+  .swatch .name {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .swatch .hex { font-family: var(--font-mono); font-size: 13px; }
+  .swatch .role { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+
+  /* Typography */
+  .type-grid { display: grid; grid-template-columns: 280px 1fr; gap: 48px; }
+  .type-row { padding: 32px 0; border-bottom: 1px solid var(--border); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-meta { color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; line-height: 1.6; }
+  .type-meta strong { color: var(--text); font-weight: 500; }
+  .type-sample { color: var(--text); }
+
+  /* App icon showcase */
+  .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .icon-card {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 32px; text-align: center;
+  }
+  .app-icon {
+    width: 120px; height: 120px; border-radius: 27px;
+    margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .app-icon.blue { background: linear-gradient(140deg, #1f6feb, #0d4ba8); }
+  .app-icon.dark { background: linear-gradient(140deg, #1c2430, #0d1117); border: 1px solid #2a3441; }
+  .app-icon.paper { background: var(--paper); }
+  .app-icon.green { background: linear-gradient(140deg, #3fb950, #2d8a3a); }
+  .icon-card small {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+
+  /* Status system */
+  .status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .status-card {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 28px; position: relative; overflow: hidden;
+  }
+  .status-card.green { border-color: rgba(63,185,80,0.3); }
+  .status-card.yellow { border-color: rgba(210,153,34,0.3); }
+  .status-card.red { border-color: rgba(248,81,73,0.3); }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+  .status-card h3 { font-size: 15px; margin: 16px 0 4px; font-weight: 500; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+  .status-card .bar { height: 6px; border-radius: 3px; background: var(--bg-subtle); overflow: hidden; margin: 14px 0 10px; }
+  .status-card .bar > span { display: block; height: 100%; border-radius: 3px; }
+  .status-card .bar.green > span { background: var(--green); width: 42%; }
+  .status-card .bar.yellow > span { background: var(--yellow); width: 78%; }
+  .status-card .bar.red > span { background: var(--red); width: 112%; }
+  .status-card .usage { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); display: flex; justify-content: space-between; }
+  .status-card .meaning { color: var(--text-muted); font-size: 13px; margin-top: 16px; line-height: 1.5; }
+
+  /* Voice */
+  .voice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .voice-card {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 28px 32px;
+  }
+  .voice-card .tag {
+    display: inline-block; font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px;
+    border-radius: 4px; margin-bottom: 16px;
+  }
+  .voice-card.do .tag { background: var(--green-bg); color: var(--green); }
+  .voice-card.dont .tag { background: var(--red-bg); color: var(--red); }
+  .voice-card p { font-size: 18px; line-height: 1.45; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .voice-card p:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  footer { margin-top: 120px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; color: var(--text-dim);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body data-screen-label="Brand System">
+
+<div class="topbar">
+  <div>
+    <div class="kicker">Budget Plan · Brand System v1.0</div>
+  </div>
+  <div class="kicker">2026 · Privacy-first</div>
+</div>
+
+<h1>Know where your money goes.<br/><em>A brand for discipline, not judgment.</em></h1>
+<p class="lead">Budget Plan is zero-based budgeting with nothing to hide — and nothing to share. The brand should feel confident, direct, and precisely calibrated. Like an instrument panel, not a self-help book.</p>
+
+<!-- LOGO -->
+<section>
+  <div class="sec-head">
+    <h2>Logo & Mark</h2>
+    <span class="idx">01 / 06</span>
+  </div>
+  <div class="logo-grid">
+    <div class="panel">
+      <span class="panel-label">Primary · Wordmark</span>
+      <div class="center" id="primary-wordmark"></div>
+    </div>
+    <div class="logo-variants">
+      <div class="logo-tile"><span id="mark-dark"></span><small>Mark · Dark</small></div>
+      <div class="logo-tile light"><span id="mark-light"></span><small>Mark · Light</small></div>
+      <div class="logo-tile blue"><span id="mark-blue"></span><small>Mark · Brand</small></div>
+      <div class="logo-tile"><span id="wordmark-sm"></span><small>Compact Lockup</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section>
+  <div class="sec-head">
+    <h2>Color Palette</h2>
+    <span class="idx">02 / 06</span>
+  </div>
+  <div class="palette">
+    <div class="swatch" style="background:#0d1117;color:#e6edf3;border-color:#2a3441">
+      <div><div class="name">Ink</div><div class="role">Primary background</div></div>
+      <div class="hex">#0D1117</div>
+    </div>
+    <div class="swatch" style="background:#151b23;color:#e6edf3;border-color:#2a3441">
+      <div><div class="name">Slate</div><div class="role">Elevated surface</div></div>
+      <div class="hex">#151B23</div>
+    </div>
+    <div class="swatch" style="background:#58a6ff;color:#0d1117">
+      <div><div class="name">Signal Blue</div><div class="role">Primary brand</div></div>
+      <div class="hex">#58A6FF</div>
+    </div>
+    <div class="swatch" style="background:#3fb950;color:#0d1117">
+      <div><div class="name">Green</div><div class="role">On-budget</div></div>
+      <div class="hex">#3FB950</div>
+    </div>
+    <div class="swatch" style="background:#d29922;color:#0d1117">
+      <div><div class="name">Yellow</div><div class="role">Warning</div></div>
+      <div class="hex">#D29922</div>
+    </div>
+    <div class="swatch" style="background:#f85149;color:#0d1117">
+      <div><div class="name">Red</div><div class="role">Over-budget</div></div>
+      <div class="hex">#F85149</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS SYSTEM -->
+<section>
+  <div class="sec-head">
+    <h2>Status System</h2>
+    <span class="idx">03 / 06</span>
+  </div>
+  <div class="status-grid">
+    <div class="status-card green">
+      <span class="status-dot" style="background:#3fb950"></span>
+      <span class="mono" style="font-size:11px;letter-spacing:0.1em;color:var(--green)">ON TRACK</span>
+      <h3>Green</h3>
+      <div class="bar green"><span></span></div>
+      <div class="usage"><span>$126 / $300</span><span>42%</span></div>
+      <p class="meaning">Under 70% of allocation. Healthy pacing. Default state for most categories mid-month.</p>
+    </div>
+    <div class="status-card yellow">
+      <span class="status-dot" style="background:#d29922"></span>
+      <span class="mono" style="font-size:11px;letter-spacing:0.1em;color:var(--yellow)">CAUTION</span>
+      <h3>Yellow</h3>
+      <div class="bar yellow"><span></span></div>
+      <div class="usage"><span>$234 / $300</span><span>78%</span></div>
+      <p class="meaning">70–99% of allocation spent. A nudge, not an alarm. Slow down or plan a borrow.</p>
+    </div>
+    <div class="status-card red">
+      <span class="status-dot" style="background:#f85149"></span>
+      <span class="mono" style="font-size:11px;letter-spacing:0.1em;color:var(--red)">OVER</span>
+      <h3>Red</h3>
+      <div class="bar red"><span></span></div>
+      <div class="usage"><span>$336 / $300</span><span>112%</span></div>
+      <p class="meaning">Exceeded allocation. Triggers the borrow/loan flow — every dollar still has to come from somewhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section>
+  <div class="sec-head">
+    <h2>Typography</h2>
+    <span class="idx">04 / 06</span>
+  </div>
+  <div class="type-grid">
+    <div class="type-meta">
+      <strong>Geist</strong><br/>Display + Body<br/>Weights 400 · 500 · 600<br/><br/>
+      <strong>JetBrains Mono</strong><br/>Figures, UI labels, receipts<br/>Weight 400 · 500 · tabular
+    </div>
+    <div>
+      <div class="type-row">
+        <div class="type-meta" style="margin-bottom:12px">Display · 72/0.95 · -0.035em</div>
+        <div class="type-sample" style="font-size:72px;line-height:0.95;letter-spacing:-0.035em;font-weight:500">Every dollar accounted&nbsp;for.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta" style="margin-bottom:12px">Headline · 40/1.05 · -0.02em</div>
+        <div class="type-sample" style="font-size:40px;line-height:1.05;letter-spacing:-0.02em;font-weight:500">A budget you can actually follow.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta" style="margin-bottom:12px">Body · 18/1.5</div>
+        <div class="type-sample" style="font-size:18px;line-height:1.5;max-width:640px">Budget Plan uses zero-based budgeting — every dollar of your income gets assigned a job before the month starts. No surprises, no guesswork, no data leaving your phone.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta" style="margin-bottom:12px">Mono figure · JetBrains Mono · tabular</div>
+        <div class="type-sample mono tnum" style="font-size:40px;letter-spacing:-0.01em">$4,280.00 / $4,280.00</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta" style="margin-bottom:12px">Label · Mono · 12/0.1em · uppercase</div>
+        <div class="type-sample mono" style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Allocation · Spent · Remaining</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP ICON -->
+<section>
+  <div class="sec-head">
+    <h2>App Icon</h2>
+    <span class="idx">05 / 06</span>
+  </div>
+  <div class="icon-grid">
+    <div class="icon-card"><div class="app-icon blue" id="icon-blue"></div><small>iOS · Primary</small></div>
+    <div class="icon-card"><div class="app-icon dark" id="icon-dark"></div><small>Android · Mono</small></div>
+    <div class="icon-card"><div class="app-icon paper" id="icon-paper"></div><small>Favicon · Light</small></div>
+    <div class="icon-card"><div class="app-icon green" id="icon-green"></div><small>Notification · Alt</small></div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section>
+  <div class="sec-head">
+    <h2>Voice</h2>
+    <span class="idx">06 / 06</span>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-card do">
+      <span class="tag">Do</span>
+      <p>"You went $36 over on Groceries. Borrow from Dining Out, or log it as a loan?"</p>
+      <p>"This month, $4,280 is assigned. $0 unassigned."</p>
+      <p>"Your data never leaves this phone. Not with us. Not with anyone."</p>
+    </div>
+    <div class="voice-card dont">
+      <span class="tag">Don't</span>
+      <p style="color:var(--text-dim)">"Oops! Looks like you splurged a little 😅"</p>
+      <p style="color:var(--text-dim)">"AI-powered insights into your spending personality."</p>
+      <p style="color:var(--text-dim)">"Let's crush your financial goals together! 🚀"</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Budget Plan · Brand System</span>
+  <span><a href="index.html">← All deliverables</a></span>
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="shared/logo.jsx"></script>
+<script type="text/babel">
+  const mount = (id, el) => {
+    const node = document.getElementById(id);
+    if (node) ReactDOM.createRoot(node).render(el);
+  };
+  mount('primary-wordmark', <BPWordmark height={56} color="#e6edf3" markColor="#58a6ff" />);
+  mount('mark-dark',  <BPMark size={64} color="#e6edf3" />);
+  mount('mark-light', <BPMark size={64} color="#0d1117" />);
+  mount('mark-blue',  <BPMark size={64} color="#ffffff" />);
+  mount('wordmark-sm',<BPWordmark height={28} color="#e6edf3" markColor="#58a6ff" />);
+  mount('icon-blue',  <BPMark size={72} color="#ffffff" />);
+  mount('icon-dark',  <BPMark size={72} color="#58a6ff" />);
+  mount('icon-paper', <BPMark size={72} color="#0d1117" />);
+  mount('icon-green', <BPMark size={72} color="#0d1117" />);
+</script>
+
+</body>
+</html>
