@@ -52,6 +52,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .mono { font-family: var(--font-mono); font-feature-settings: "tnum"; }
@@ -323,9 +324,9 @@ footer .row { display: flex; justify-content: space-between; align-items: center
       </div>
     </a>
     <div class="links">
-      <a href="#">Product</a>
-      <a href="#">Privacy</a>
-      <a href="#">Method</a>
+      <a href="#product">Product</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#method">Method</a>
     </div>
   </div>
 </nav>
@@ -338,7 +339,7 @@ footer .row { display: flex; justify-content: space-between; align-items: center
       <h1>Know<br/>where your<br/>money <em>goes.</em></h1>
       <p class="lead">Budget Plan is zero-based budgeting for your pocket. Every dollar gets a job before the month starts. Your data never leaves your phone.</p>
       <div class="cta-row">
-        <a href="#" class="btn-primary">Download now →</a>
+        <a href="#download" class="btn-primary">Download now →</a>
         <a href="#" class="btn-ghost">Watch 60-sec demo</a>
       </div>
       <div class="trust">
@@ -401,7 +402,7 @@ footer .row { display: flex; justify-content: space-between; align-items: center
 </section>
 
 <!-- ── How It Works ──────────────────────────────────────────── -->
-<section class="band">
+<section class="band" id="method">
   <div class="container">
     <div class="section-head">
       <h2>How it works</h2>
@@ -456,7 +457,7 @@ footer .row { display: flex; justify-content: space-between; align-items: center
 </section>
 
 <!-- ── Privacy ───────────────────────────────────────────────── -->
-<section class="band">
+<section class="band" id="privacy">
   <div class="container">
     <div class="section-head">
       <h2>Privacy</h2>
@@ -485,7 +486,7 @@ footer .row { display: flex; justify-content: space-between; align-items: center
 </section>
 
 <!-- ── Carousel ──────────────────────────────────────────────── -->
-<section class="band">
+<section class="band" id="product">
   <div class="container">
     <div class="section-head">
       <h2>Inside the app</h2>
@@ -599,14 +600,14 @@ footer .row { display: flex; justify-content: space-between; align-items: center
 </section>
 
 <!-- ── Final CTA ─────────────────────────────────────────────── -->
-<section class="final-cta">
+<section class="final-cta" id="download">
   <div class="container">
     <h2>Every dollar,<br/>a job. <em>Start now.</em></h2>
     <div class="cta-row">
       <a href="#" class="btn-primary" style="font-size:14px;padding:18px 28px">Download on iOS →</a>
       <a href="#" class="btn-primary" style="font-size:14px;padding:18px 28px">Get on Android →</a>
     </div>
-    <div style="margin-top:48px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)">Free · Local-only · No account · No tracking</div>
+    <div style="margin-top:48px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)">Local-only · No account · No tracking</div>
   </div>
 </section>
 
