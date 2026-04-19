@@ -1,22 +1,17 @@
-# CODING AGENTS: READ THIS FIRST
+# Budget Plan
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Simple, privacy-focused budgeting app. Every dollar gets a job before the month starts.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## What it does
 
-## What you should do — IMPORTANT
+- **Zero-based budgeting** — Allocate your income to categories before you spend
+- **Track spending** — See how you're doing against your budget
+- **Adjust on the fly** — Borrow from other categories when life happens
 
-**Read `budget-app/project/Website.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Why it's different
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+Your budget stays on your phone. We never see your data. No tracking, no ads, no data sales.
 
-## About the design files
+## Status
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
-
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
-
-## Bundle contents
-
-- `budget-app/README.md` — this file
-- `budget-app/project/` — the `Budget App` project files (HTML prototypes, assets, components)
+Coming soon to Google Play Store. Check out the design at https://alexandruv.github.io/budget_plan_www
