@@ -613,8 +613,8 @@ footer .row { display: flex; justify-content: space-between; align-items: center
   <div class="container">
     <h2>Every dollar,<br/>a job. <em>Start now.</em></h2>
     <div class="cta-row">
-      <a href="#" class="btn-primary" style="font-size:14px;padding:18px 28px">Download on iOS →</a>
-      <a href="#" class="btn-primary" style="font-size:14px;padding:18px 28px">Get on Android →</a>
+      <a href="#" id="btn-ios" class="btn-primary" style="font-size:14px;padding:18px 28px">Download on iOS →</a>
+      <a href="#" id="btn-android" class="btn-primary" style="font-size:14px;padding:18px 28px">Get on Android →</a>
     </div>
     <div style="margin-top:48px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)">Local-only · No account · No tracking</div>
   </div>
@@ -637,6 +637,19 @@ footer .row { display: flex; justify-content: space-between; align-items: center
     <div>© 2026 · Every dollar has a job.</div>
   </div>
 </footer>
+
+<!-- ── Analytics Events ───────────────────────────────────────── -->
+<script>
+(function () {
+  function track(label) {
+    gtag('event', 'click', { event_category: 'CTA', event_label: label });
+  }
+  document.querySelector('a[href="#download"].btn-primary').addEventListener('click', function () { track('Download Now'); });
+  document.getElementById('open-demo').addEventListener('click', function () { track('Watch Demo'); });
+  document.getElementById('btn-ios').addEventListener('click', function () { track('Download iOS'); });
+  document.getElementById('btn-android').addEventListener('click', function () { track('Download Android'); });
+})();
+</script>
 
 <!-- ── Demo Modal ─────────────────────────────────────────────── -->
 <div id="demo-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);align-items:center;justify-content:center">
