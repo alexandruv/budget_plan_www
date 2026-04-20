@@ -1,0 +1,12 @@
+{
+  "name": "budget-plan-www",
+  "private": true,
+  "scripts": {
+    "install:browsers": "node scripts/install-playwright.cjs",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1"
+  }
+}
