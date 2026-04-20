@@ -80,6 +80,7 @@ nav.top {
 nav.top .inner {
   max-width: 1400px; margin: 0 auto; padding: 18px 56px;
   display: flex; align-items: center; justify-content: space-between;
+  position: relative;
 }
 nav.top .links { display: flex; gap: 32px; }
 nav.top .links a {
@@ -88,6 +89,20 @@ nav.top .links a {
   transition: color 0.15s;
 }
 nav.top .links a:hover { color: var(--text); }
+nav.top .nav-toggle {
+  display: none;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+nav.top .nav-toggle:hover { border-color: var(--border-strong); }
 nav.top .btn {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;
   text-transform: uppercase; font-weight: 500;
@@ -403,9 +418,31 @@ h2.display,
 
 @media (max-width: 560px) {
   .container { padding: 0 18px; }
-  nav.top .inner { padding: 14px 18px; flex-wrap: wrap; gap: 12px; }
-  nav.top .links { gap: 18px; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
-  nav.top .links a { font-size: 11px; letter-spacing: 0.08em; }
+  nav.top .inner { padding: 14px 18px; gap: 12px; }
+  nav.top .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  nav.top .links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 18px;
+    right: 18px;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(21, 27, 35, 0.96);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  nav.top .links.open { display: flex; }
+  nav.top .links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  nav.top .links a:last-child { border-bottom: 0; }
 
   .hero { padding: 36px 0 56px; }
   .hero .badge { margin-bottom: 20px; font-size: 10px; padding: 6px 12px; }
@@ -472,11 +509,12 @@ h2.display,
         <span style="font-family:Geist,Inter,sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.02em;line-height:1;color:#e6edf3">Budget Plan</span>
       </div>
     </a>
-    <div class="links">
+    <div class="links" id="nav-links">
       <a href="#product">Product</a>
       <a href="#privacy">Privacy</a>
       <a href="#method">Method</a>
     </div>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu</button>
   </div>
 </nav>
 
@@ -779,6 +817,34 @@ h2.display,
 </footer>
 
 <!-- ── Analytics Events ───────────────────────────────────────── -->
+<script>
+(function () {
+  var mobileQuery = window.matchMedia('(max-width: 560px)');
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+
+  function closeMenu() {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    var next = !links.classList.contains('open');
+    links.classList.toggle('open', next);
+    toggle.setAttribute('aria-expanded', String(next));
+  });
+
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closeMenu);
+  });
+
+  mobileQuery.addEventListener('change', function (e) {
+    if (!e.matches) closeMenu();
+  });
+})();
+</script>
+
 <script>
 (function () {
   function track(label) {
