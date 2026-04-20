@@ -492,7 +492,7 @@ h2.display,
   }
 }
 
-/* ── Demo modal (Loom portrait embed) ───────────────────────── */
+/* ── Demo modal (Loom landscape embed) ──────────────────────── */
 #demo-modal {
   display: none;
   position: fixed;
@@ -538,18 +538,18 @@ h2.display,
   justify-content: center;
 }
 
-/* Loom portrait ratio 216% padding → 1 : 2.16; cap size so modal fits viewport */
+/* Matches Loom embed padding-bottom (height/width); cap width so height fits viewport */
 .demo-modal-video {
   position: relative;
-  width: min(900px, calc(100vw - 32px), calc((82vh - 24px) / 2.16));
-  aspect-ratio: 1 / 2.16;
+  width: min(1200px, calc(100vw - 32px), calc((82vh - 24px) * 100 / 72.58064516129032));
+  aspect-ratio: 100 / 72.58064516129032;
 }
 
 /* Older browsers without aspect-ratio */
 @supports not (aspect-ratio: 1 / 1) {
   .demo-modal-video {
     height: 0;
-    padding-bottom: 216%;
+    padding-bottom: 72.58064516129032%;
   }
 }
 
