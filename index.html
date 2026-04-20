@@ -314,6 +314,154 @@ footer {
   color: var(--text-dim);
 }
 footer .row { display: flex; justify-content: space-between; align-items: center; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+.hero h1,
+h2.display,
+.final-cta h2 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+@media (max-width: 1100px) {
+  .hero h1 { font-size: clamp(2.75rem, 8vw, 96px); }
+  h2.display { font-size: clamp(2.25rem, 6.5vw, 80px); }
+  .final-cta h2 { font-size: clamp(2.5rem, 10vw, 140px); }
+}
+
+@media (max-width: 900px) {
+  .container { padding: 0 24px; }
+  nav.top .inner { padding: 16px 24px; }
+
+  .hero { padding: 48px 0 72px; }
+  .hero .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .hero .lead { font-size: 18px; max-width: none; }
+  .hero .trust { flex-wrap: wrap; gap: 16px 24px; margin-top: 40px; }
+
+  .phone-stack {
+    height: 400px;
+    margin: 0 auto;
+    max-width: 420px;
+    overflow: hidden;
+  }
+  .phone {
+    transform-origin: top center;
+  }
+  .phone.p2 {
+    right: auto;
+    left: 50%;
+    top: 48px;
+    transform: translateX(calc(-50% - 72px)) rotate(-6deg) scale(0.88);
+  }
+  .phone.p1 {
+    right: auto;
+    left: 50%;
+    top: 24px;
+    transform: translateX(calc(-50% + 72px)) rotate(4deg) scale(0.88);
+  }
+
+  section.band { padding: 72px 0; }
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+  }
+  .lead-p { font-size: 17px; margin-bottom: 48px; }
+
+  .feat-grid {
+    grid-template-columns: 1fr 1fr;
+    border-radius: var(--r-lg);
+  }
+  .feat { min-height: 280px; padding: 28px 22px; }
+  .feat h3 { font-size: 22px; }
+
+  .trust-strip { grid-template-columns: 1fr; gap: 16px; }
+
+  .carousel {
+    padding: 8px 24px 32px;
+    margin: 0 -24px -32px;
+    scroll-padding-left: 24px;
+  }
+  .carousel .frame { scroll-margin-left: 24px; }
+
+  .final-cta { padding: 72px 0 96px; }
+  .final-cta .cta-row { flex-direction: column; align-items: stretch; }
+  .final-cta .cta-row .btn-primary { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .feat-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .container { padding: 0 18px; }
+  nav.top .inner { padding: 14px 18px; flex-wrap: wrap; gap: 12px; }
+  nav.top .links { gap: 18px; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
+  nav.top .links a { font-size: 11px; letter-spacing: 0.08em; }
+
+  .hero { padding: 36px 0 56px; }
+  .hero .badge { margin-bottom: 20px; font-size: 10px; padding: 6px 12px; }
+  .hero h1 { font-size: clamp(2rem, 9.5vw, 3.25rem); line-height: 1.02; }
+  .hero .lead { font-size: 16px; margin-bottom: 28px; }
+  .hero .cta-row { flex-direction: column; align-items: stretch; }
+  .hero .cta-row .btn-primary,
+  .hero .cta-row .btn-ghost { justify-content: center; text-align: center; }
+  .hero .trust { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+  .phone-stack {
+    height: 340px;
+    max-width: 100%;
+  }
+  .phone { width: 280px; border-width: 8px; border-radius: 36px; }
+  .phone.p2 {
+    transform: translateX(calc(-50% - 58px)) rotate(-5deg) scale(0.75);
+    top: 40px;
+  }
+  .phone.p1 {
+    transform: translateX(calc(-50% + 58px)) rotate(3deg) scale(0.75);
+    top: 16px;
+  }
+
+  h2.display { font-size: clamp(1.65rem, 7.5vw, 2.75rem); line-height: 1.05; }
+  .lead-p { font-size: 16px; line-height: 1.55; margin-bottom: 36px; }
+
+  .feat { min-height: 0; padding: 24px 18px; }
+  .feat h3 { font-size: 20px; }
+  .feat h3 br { display: none; }
+  .feat p { font-size: 14px; }
+
+  .trust-card { padding: 22px 18px; }
+  .trust-card h3 { font-size: 19px; }
+
+  .carousel {
+    padding: 8px 18px 28px;
+    margin: 0 -18px -28px;
+    scroll-padding-left: 18px;
+  }
+  .carousel .frame { width: min(300px, 85vw); }
+  .mini-phone {
+    width: 100%;
+    max-width: 300px;
+    height: 560px;
+  }
+
+  .final-cta h2 { font-size: clamp(1.75rem, 8.5vw, 2.75rem); line-height: 1.08; }
+  .final-cta { padding: 56px 0 72px; }
+
+  footer { padding: 40px 0; }
+  footer .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
 </style>
 </head>
 <body>
