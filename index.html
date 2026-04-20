@@ -416,21 +416,10 @@ h2.display,
   .hero .cta-row .btn-ghost { justify-content: center; text-align: center; }
   .hero .trust { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  .hero .inner { gap: 18px; }
+  .hero .inner { gap: 12px; }
 
-  .phone-stack {
-    height: clamp(168px, 46vw, 240px);
-    max-width: 100%;
-  }
-  .phone { width: 260px; border-width: 8px; border-radius: 36px; }
-  .phone.p2 {
-    transform: translateX(calc(-50% - 50px)) rotate(-5deg) scale(0.66);
-    top: 18px;
-  }
-  .phone.p1 {
-    transform: translateX(calc(-50% + 50px)) rotate(3deg) scale(0.66);
-    top: 0;
-  }
+  /* On narrow phones the mockup is decorative; hide it to remove dead vertical space. */
+  .phone-stack { display: none; }
 
   h2.display { font-size: clamp(1.65rem, 7.5vw, 2.75rem); line-height: 1.05; }
   .lead-p { font-size: 16px; line-height: 1.55; margin-bottom: 36px; }
