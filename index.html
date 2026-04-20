@@ -491,6 +491,76 @@ h2.display,
     gap: 20px;
   }
 }
+
+/* ── Demo modal (Loom portrait embed) ───────────────────────── */
+#demo-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  box-sizing: border-box;
+}
+
+.demo-modal-panel {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--bg-elevated);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+}
+
+#close-demo {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loom portrait ratio 216% padding → 1 : 2.16; cap size so modal fits viewport */
+.demo-modal-video {
+  position: relative;
+  width: min(900px, calc(100vw - 32px), calc((82vh - 24px) / 2.16));
+  aspect-ratio: 1 / 2.16;
+}
+
+/* Older browsers without aspect-ratio */
+@supports not (aspect-ratio: 1 / 1) {
+  .demo-modal-video {
+    height: 0;
+    padding-bottom: 216%;
+  }
+}
+
+.demo-modal-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 </style>
 </head>
 <body>
@@ -858,11 +928,11 @@ h2.display,
 </script>
 
 <!-- ── Demo Modal ─────────────────────────────────────────────── -->
-<div id="demo-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);align-items:center;justify-content:center">
-  <div style="position:relative;width:min(900px,92vw);background:var(--bg-elevated);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6)">
-    <button id="close-demo" style="position:absolute;top:14px;right:14px;z-index:10;background:var(--bg-subtle);border:1px solid var(--border);color:var(--text-muted);font-size:18px;line-height:1;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
-    <div style="position:relative;padding-bottom:216%;height:0">
-      <iframe id="demo-iframe" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+<div id="demo-modal">
+  <div class="demo-modal-panel">
+    <button type="button" id="close-demo" aria-label="Close demo">✕</button>
+    <div class="demo-modal-video">
+      <iframe id="demo-iframe" src="" title="Budget Plan demo" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen"></iframe>
     </div>
   </div>
 </div>
