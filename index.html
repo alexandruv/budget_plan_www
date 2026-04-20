@@ -861,15 +861,15 @@ h2.display,
 <div id="demo-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);align-items:center;justify-content:center">
   <div style="position:relative;width:min(900px,92vw);background:var(--bg-elevated);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6)">
     <button id="close-demo" style="position:absolute;top:14px;right:14px;z-index:10;background:var(--bg-subtle);border:1px solid var(--border);color:var(--text-muted);font-size:18px;line-height:1;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
-    <div style="position:relative;padding-bottom:62.5%;height:0">
-      <iframe id="demo-iframe" src="" frameborder="0" allowfullscreen allow="autoplay; fullscreen" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    <div style="position:relative;padding-bottom:216%;height:0">
+      <iframe id="demo-iframe" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
     </div>
   </div>
 </div>
 
 <script>
 (function () {
-  var LOOM_EMBED = 'https://www.loom.com/embed/676cb7b82b334682972a38aebffa2cfb?autoplay=1';
+  var LOOM_EMBED = 'https://www.loom.com/embed/af68ffe170ad4896968f4a1d1444f78c?autoplay=1';
   var modal = document.getElementById('demo-modal');
   var iframe = document.getElementById('demo-iframe');
 
