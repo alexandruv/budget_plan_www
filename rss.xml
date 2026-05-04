@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Budget Plan Blog</title>
+    <link>https://alexandruv.github.io/budget_plan_www/blog/</link>
+    <description>Practical, privacy-first budgeting articles from Budget Plan.</description>
+    <language>en</language>
+    <item>
+      <title>Zero-based budgeting without spreadsheets</title>
+      <link>https://alexandruv.github.io/budget_plan_www/blog/zero-based-budgeting-without-spreadsheets/</link>
+      <guid>https://alexandruv.github.io/budget_plan_www/blog/zero-based-budgeting-without-spreadsheets/</guid>
+      <pubDate>Mon, 04 May 2026 08:00:00 +0000</pubDate>
+      <description>A practical way to give every unit of income a job without turning your monthly budget into spreadsheet maintenance.</description>
+    </item>
+  </channel>
+</rss>

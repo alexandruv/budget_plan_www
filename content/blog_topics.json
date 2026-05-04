@@ -1,0 +1,29 @@
+{
+  "topics": [
+    {
+      "slug_hint": "zero-based-budgeting-without-spreadsheets",
+      "title": "Zero-based budgeting without spreadsheets",
+      "angle": "Explain how to assign every euro a job before the month starts, using a phone-first workflow instead of a complex spreadsheet."
+    },
+    {
+      "slug_hint": "what-to-do-when-a-category-goes-over-budget",
+      "title": "What to do when one category goes over budget",
+      "angle": "Teach a calm process for moving money between categories without losing sight of the monthly plan."
+    },
+    {
+      "slug_hint": "monthly-budget-reset-routine",
+      "title": "A monthly budget reset routine that takes 20 minutes",
+      "angle": "Give readers a practical month-end routine for reviewing categories, carrying forward decisions, and starting clean."
+    },
+    {
+      "slug_hint": "private-budgeting-apps",
+      "title": "Why privacy matters in a budgeting app",
+      "angle": "Make the case for local-first budgeting tools without fearmongering or making unsupported security claims."
+    },
+    {
+      "slug_hint": "budgeting-when-income-changes-each-month",
+      "title": "Budgeting when your income changes each month",
+      "angle": "Show how to budget variable income conservatively by prioritising essentials, buffers, and savings goals."
+    }
+  ]
+}

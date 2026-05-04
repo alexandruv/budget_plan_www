@@ -283,6 +283,67 @@ h2.display em { font-style: normal; color: var(--text-muted); }
 .trust-card h3 { font-size: 22px; line-height: 1.2; letter-spacing: -0.015em; font-weight: 500; margin: 0 0 12px; }
 .trust-card p { font-size: 15px; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
+/* ── Blog preview ───────────────────────────────────────────── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.blog-card {
+  min-height: 300px;
+  background: var(--bg);
+  padding: 32px;
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.15s;
+}
+.blog-card:hover,
+.blog-card:focus-visible {
+  background: var(--bg-elevated);
+  outline: none;
+}
+.blog-card time,
+.blog-card span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.blog-card h3 {
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  margin: 0;
+}
+.blog-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+.blog-card span { margin-top: auto; color: var(--blue); }
+.blog-more {
+  display: inline-flex;
+  margin-top: 28px;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.blog-more:hover,
+.blog-more:focus-visible { color: var(--text); }
+
 /* ── Carousel ──────────────────────────────────────────────── */
 .carousel {
   display: flex; gap: 24px; overflow-x: auto; padding: 8px 56px 40px;
@@ -399,6 +460,8 @@ h2.display,
   .feat h3 { font-size: 22px; }
 
   .trust-strip { grid-template-columns: 1fr; gap: 16px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card { min-height: 0; padding: 28px 22px; }
 
   .carousel {
     padding: 8px 24px 32px;
@@ -468,6 +531,8 @@ h2.display,
 
   .trust-card { padding: 22px 18px; }
   .trust-card h3 { font-size: 19px; }
+  .blog-card { padding: 24px 18px; }
+  .blog-card h3 { font-size: 21px; }
 
   .carousel {
     padding: 8px 18px 28px;
@@ -583,6 +648,7 @@ h2.display,
       <a href="#product">Product</a>
       <a href="#privacy">Privacy</a>
       <a href="#method">Method</a>
+      <a href="#blog">Blog</a>
     </div>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu</button>
   </div>
@@ -855,6 +921,28 @@ h2.display,
     </div>
   </div>
 </section>
+
+<!-- BLOG_LATEST_START -->
+<section class="band blog-preview" id="blog">
+  <div class="container">
+    <div class="section-head">
+      <h2>Blog</h2>
+      <span class="idx">04 | Practical money habits</span>
+    </div>
+    <h2 class="display">Small money systems.<br/><em>Written for real months.</em></h2>
+    <p class="lead-p">Practical notes on zero-based budgeting, privacy-first tools, and month-end routines.</p>
+    <div class="blog-grid">
+      <a class="blog-card" href="blog/zero-based-budgeting-without-spreadsheets/">
+        <time datetime="2026-05-04">May 04, 2026</time>
+        <h3>Zero-based budgeting without spreadsheets</h3>
+        <p>A practical way to give every unit of income a job without turning your monthly budget into spreadsheet maintenance.</p>
+        <span>budgeting | privacy -></span>
+      </a>
+    </div>
+    <a class="blog-more" href="blog/">All articles -></a>
+  </div>
+</section>
+<!-- BLOG_LATEST_END -->
 
 <!-- ── Final CTA ─────────────────────────────────────────────── -->
 <section class="final-cta" id="download">

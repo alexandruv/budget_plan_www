@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://alexandruv.github.io/budget_plan_www/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://alexandruv.github.io/budget_plan_www/blog/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://alexandruv.github.io/budget_plan_www/rss.xml</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://alexandruv.github.io/budget_plan_www/blog/zero-based-budgeting-without-spreadsheets/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>

@@ -2,6 +2,8 @@
   "name": "budget-plan-www",
   "private": true,
   "scripts": {
+    "build:blog": "python3 scripts/build_blog.py",
+    "generate:blog": "python3 scripts/generate_blog_post.py",
     "install:browsers": "node scripts/install-playwright.cjs",
     "test": "playwright test",
     "test:ui": "playwright test --ui"
