@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import textwrap
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -21,8 +22,9 @@ ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "posts"
 TOPICS_PATH = ROOT / "content" / "blog_topics.json"
 STYLE_PATH = ROOT / "content" / "blog_style.md"
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+MAX_GEMINI_ATTEMPTS = 3
 
 
 def existing_metadata() -> list[dict[str, str]]:
@@ -108,12 +110,24 @@ def call_gemini(prompt: str) -> str:
         method="POST",
     )
 
-    try:
-        with urllib.request.urlopen(request, timeout=90) as response:
-            result = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        details = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Gemini request failed: HTTP {exc.code}: {details}") from exc
+    for attempt in range(1, MAX_GEMINI_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                result = json.loads(response.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as exc:
+            details = exc.read().decode("utf-8", errors="replace")
+            if exc.code == 429 and attempt < MAX_GEMINI_ATTEMPTS:
+                time.sleep(30 * attempt)
+                continue
+            if exc.code == 429:
+                raise RuntimeError(
+                    "Gemini quota is exhausted or the selected model has no free-tier allowance. "
+                    f"Current GEMINI_MODEL={GEMINI_MODEL}. Check https://ai.dev/rate-limit or change "
+                    "GEMINI_MODEL in the workflow to a model with available quota. "
+                    f"Raw response: {details}"
+                ) from exc
+            raise RuntimeError(f"Gemini request failed: HTTP {exc.code}: {details}") from exc
 
     try:
         return result["candidates"][0]["content"]["parts"][0]["text"]
