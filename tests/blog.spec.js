@@ -4,7 +4,7 @@ test.describe('Blog', () => {
   test('landing page exposes the blog in navigation and latest posts', async ({ page }) => {
     await page.goto('/index.html');
 
-    await expect(page.locator('#nav-links').getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '#blog');
+    await expect(page.locator('#nav-links').getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
     await expect(page.locator('#blog')).toBeVisible();
     await expect(page.locator('#blog').getByRole('heading', { name: 'Blog' })).toBeVisible();
     await expect(page.locator('#blog').getByRole('link', { name: /Zero-based budgeting without spreadsheets/ })).toHaveAttribute(
