@@ -42,6 +42,37 @@ REQUIRED_FIELDS = {"title", "description", "date", "slug", "tags", "status"}
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 PLACEHOLDER_RE = re.compile(r"\b(lorem ipsum|todo|tbd|placeholder|insert\b)", re.IGNORECASE)
 
+IMG_MARKDOWN_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
+ALLOWED_IMAGE_URL_RE = re.compile(
+    r"^/blog/assets/[A-Za-z0-9][A-Za-z0-9._-]*\.(?:jpg|jpeg|png|webp|gif)$"
+)
+
+
+def validate_blog_asset_image_url(url: str) -> None:
+    candidate = url.strip()
+    if PLACEHOLDER_RE.search(candidate):
+        raise ValueError(f"Image URL contains placeholder-like text: {candidate}")
+    if not ALLOWED_IMAGE_URL_RE.fullmatch(candidate):
+        raise ValueError(
+            "Blog images must use site-root absolute URLs under /blog/assets/ "
+            f"with safe filenames (jpg/jpeg/png/webp/gif). Got: {candidate}"
+        )
+
+
+def validate_markdown_images(markdown: str) -> None:
+    for _, raw_url in IMG_MARKDOWN_RE.findall(markdown):
+        validate_blog_asset_image_url(raw_url)
+
+
+def render_blog_img_tag(alt: str, url: str) -> str:
+    validate_blog_asset_image_url(url)
+    esc_url = html.escape(url.strip(), quote=True)
+    esc_alt = html.escape(alt)
+    return (
+        f'<img src="{esc_url}" alt="{esc_alt}" '
+        'loading="lazy" decoding="async" />'
+    )
+
 
 @dataclass(frozen=True)
 class Post:
@@ -121,6 +152,11 @@ def load_posts() -> list[Post]:
         if PLACEHOLDER_RE.search(body) or PLACEHOLDER_RE.search(title) or PLACEHOLDER_RE.search(metadata["description"]):
             raise ValueError(f"{path}: placeholder text is not allowed")
 
+        try:
+            validate_markdown_images(body)
+        except ValueError as exc:
+            raise ValueError(f"{path}: {exc}") from exc
+
         tags = tuple(tag.strip() for tag in metadata["tags"].split(",") if tag.strip())
         if not tags:
             raise ValueError(f"{path}: at least one tag is required")
@@ -145,12 +181,24 @@ def load_posts() -> list[Post]:
     return sorted(ready_posts, key=lambda post: post.date, reverse=True)
 
 
-def inline_markdown(text: str) -> str:
+def inline_markdown_plain(text: str) -> str:
     escaped = html.escape(text)
     escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
     escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
     escaped = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', escaped)
     return escaped
+
+
+def inline_markdown(text: str) -> str:
+    parts: list[str] = []
+    last = 0
+    for match in IMG_MARKDOWN_RE.finditer(text):
+        parts.append(inline_markdown_plain(text[last : match.start()]))
+        alt, raw_url = match.group(1), match.group(2)
+        parts.append(render_blog_img_tag(alt, raw_url))
+        last = match.end()
+    parts.append(inline_markdown_plain(text[last:]))
+    return "".join(parts)
 
 
 def markdown_to_html(markdown: str, title: str) -> str:
@@ -198,6 +246,14 @@ def markdown_to_html(markdown: str, title: str) -> str:
             flush_paragraph()
             flush_list()
             blocks.append(f"<h3>{inline_markdown(line[4:].strip())}</h3>")
+            continue
+
+        img_only = re.fullmatch(r"!\[([^\]]*)\]\(([^)]+)\)", line)
+        if img_only:
+            flush_paragraph()
+            flush_list()
+            img_html = render_blog_img_tag(img_only.group(1), img_only.group(2))
+            blocks.append(f'<figure class="blog-image">{img_html}</figure>')
             continue
 
         if line.startswith("- "):
@@ -410,6 +466,19 @@ article .content code {{
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 1px 5px;
+}}
+article .content img {{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}}
+figure.blog-image {{
+  margin: 40px 0;
+}}
+figure.blog-image img {{
+  margin-inline: auto;
 }}
 .back-link {{
   display: inline-flex;

@@ -1,5 +1,6 @@
 name: Generate blog post
 
+# One draft PR per week (Monday 07:00 UTC). Requires GEMINI_API_KEY secret.
 on:
   schedule:
     - cron: "0 7 * * 1"
@@ -42,7 +43,7 @@ jobs:
           title: "Add AI-assisted blog draft"
           body: |
             ## Summary
-            - Adds one Gemini-generated Budget Plan blog draft.
+            - Weekly automation: one Gemini-generated Budget Plan blog draft per scheduled run.
             - Rebuilds the static blog pages, RSS feed, sitemap, and homepage latest-post section.
 
             ## Review checklist

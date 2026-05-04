@@ -20,6 +20,7 @@ import build_blog
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "posts"
+BLOG_ASSETS_DIR = ROOT / "blog" / "assets"
 TOPICS_PATH = ROOT / "content" / "blog_topics.json"
 STYLE_PATH = ROOT / "content" / "blog_style.md"
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
@@ -35,6 +36,17 @@ def existing_metadata() -> list[dict[str, str]]:
     return posts
 
 
+def list_blog_asset_urls() -> list[str]:
+    if not BLOG_ASSETS_DIR.is_dir():
+        return []
+    allowed = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+    urls: list[str] = []
+    for path in sorted(BLOG_ASSETS_DIR.iterdir()):
+        if path.is_file() and path.suffix.lower() in allowed:
+            urls.append(f"/blog/assets/{path.name}")
+    return urls
+
+
 def select_topic(existing_slugs: set[str]) -> dict[str, str]:
     topics = json.loads(TOPICS_PATH.read_text(encoding="utf-8"))["topics"]
     for topic in topics:
@@ -46,6 +58,18 @@ def select_topic(existing_slugs: set[str]) -> dict[str, str]:
 def build_prompt(topic: dict[str, str], existing_posts: list[dict[str, str]], today: str) -> str:
     style = STYLE_PATH.read_text(encoding="utf-8")
     existing = "\n".join(f"- {post['title']} ({post['slug']})" for post in existing_posts) or "- None"
+    asset_urls = list_blog_asset_urls()
+    if asset_urls:
+        images_policy = (
+            "Screenshots live under blog/assets/. If you embed images, use Markdown "
+            "`![short caption](/blog/assets/filename.ext)` only with these exact URLs:\n"
+            + "\n".join(f"- {url}" for url in asset_urls)
+        )
+    else:
+        images_policy = (
+            "There are no image files under blog/assets/ yet. Do not embed Markdown images "
+            "(`![alt](/blog/assets/...)`) in this article."
+        )
     return textwrap.dedent(
         f"""
         You are writing one production-ready Markdown article for the Budget Plan website.
@@ -61,6 +85,9 @@ def build_prompt(topic: dict[str, str], existing_posts: list[dict[str, str]], to
         Style and policy:
         {style}
 
+        Images:
+        {images_policy}
+
         Return only a complete Markdown file. Do not wrap it in code fences.
         The file must start with this front matter shape:
         ---
@@ -73,7 +100,7 @@ def build_prompt(topic: dict[str, str], existing_posts: list[dict[str, str]], to
         ---
 
         Requirements:
-        - 850 to 1200 words.
+        - About 650 to 850 words (±50 words is acceptable; stay tight and practical).
         - One H1 matching the title.
         - 4 to 6 H2 sections.
         - Concrete examples using monthly spending categories.
@@ -165,6 +192,10 @@ def validate_generated_post(markdown: str, topic: dict[str, str], existing_slugs
         raise RuntimeError("Generated status must be ready so the PR preview includes rendered output.")
     if build_blog.PLACEHOLDER_RE.search(markdown):
         raise RuntimeError("Generated post contains placeholder text.")
+    try:
+        build_blog.validate_markdown_images(body)
+    except ValueError as exc:
+        raise RuntimeError(f"Generated post has invalid image URLs: {exc}") from exc
     if f"# {metadata['title']}" not in body:
         raise RuntimeError("Generated post must include one H1 matching the title.")
     if len(re.findall(r"^## ", body, flags=re.MULTILINE)) < 4:

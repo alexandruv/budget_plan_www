@@ -6,7 +6,7 @@
     "check:analytics": "node scripts/check-google-analytics.cjs",
     "generate:blog": "python3 scripts/generate_blog_post.py",
     "install:browsers": "node scripts/install-playwright.cjs",
-    "test": "npm run check:analytics && playwright test",
+    "test": "npm run check:analytics && python3 scripts/test_blog_markdown_snippets.py && playwright test",
     "test:ui": "playwright test --ui"
   },
   "devDependencies": {
