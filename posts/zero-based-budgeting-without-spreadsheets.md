@@ -9,7 +9,7 @@ status: ready
 
 # Zero-based budgeting without spreadsheets
 
-Zero-based budgeting is simple: every unit of income that comes in gets assigned before it gets spent. The hard part is not the maths. The hard part is keeping the system small enough that you will still use it on a normal Tuesday.
+I spent years wrestling with complex Excel formulas before realizing I just needed a simple way to tell my money where to go on a Tuesday morning.
 
 Spreadsheets can work, but they often turn budgeting into a second admin job. A phone-first budget should do less and make the next decision obvious.
 
@@ -21,7 +21,7 @@ That does not mean spending everything. Savings, rent, bills, groceries, transpo
 
 ## Keep categories boring
 
-Most budgets fail because the category list becomes too clever. Start with the categories that create real decisions:
+Most budgets fail because the category list becomes too clever. In BudgetPlan, we keep the UI focused on these core categories so you aren't overwhelmed by choice:
 
 - Rent or mortgage
 - Groceries
@@ -49,3 +49,5 @@ The point is not to create a perfect forecast. The point is to build a small mon
 ## One action for today
 
 Open your current budget and look for unassigned money. If there is any, give it a job now. If there is none, choose one category that often goes over and decide where the money should come from next time.
+
+Stop maintaining spreadsheets and start budgeting. [Try the BudgetPlan tool here](https://budgetplan.pomeloapps.com/).
