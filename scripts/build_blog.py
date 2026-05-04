@@ -427,27 +427,28 @@ footer {{
 </head>"""
 
 
-def render_nav() -> str:
+def render_nav(*, home_prefix: str, blog_href: str) -> str:
+    """Blog pages live under blog/; article pages live under blog/<slug>/.
+
+    home_prefix is the relative path from the current HTML file to the site root index,
+    including trailing slash semantics via "../" segments only (no leading slash).
+    blog_href is the relative URL for the blog listing page from the current file.
+    """
+    root_index = f"{home_prefix}index.html"
     return f"""<nav class="top">
   <div class="inner">
-    <a class="brand" href="../index.html">
+    <a class="brand" href="{root_index}">
       {render_logo()}
       <span>Budget Plan</span>
     </a>
     <div class="nav-links" aria-label="Primary navigation">
-      <a href="../index.html#product">Product</a>
-      <a href="../index.html#privacy">Privacy</a>
-      <a href="../index.html#method">Method</a>
-      <a href="index.html">Blog</a>
+      <a href="{root_index}#product">Product</a>
+      <a href="{root_index}#privacy">Privacy</a>
+      <a href="{root_index}#method">Method</a>
+      <a href="{blog_href}">Blog</a>
     </div>
   </div>
 </nav>"""
-
-
-def render_article_nav() -> str:
-    return render_nav().replace('href="../index.html"', 'href="../../index.html"').replace(
-        'href="index.html"', 'href="../index.html"'
-    )
 
 
 def render_post_card(post: Post) -> str:
@@ -465,7 +466,7 @@ def render_blog_index(posts: Iterable[Post]) -> str:
     post_cards = "\n".join(render_post_card(post) for post in posts)
     return f"""{render_head('Budget Plan Blog - Practical budgeting habits', 'Practical, privacy-first budgeting articles from Budget Plan.', 'blog/')}
 <body>
-{render_nav()}
+{render_nav(home_prefix="../", blog_href="index.html")}
 <main>
   <section class="blog-hero">
     <div class="container">
@@ -493,7 +494,7 @@ def render_article(post: Post) -> str:
     tags = " | ".join(html.escape(tag) for tag in post.tags)
     return f"""{render_head(f'{post.title} - Budget Plan Blog', post.description, post.url_path)}
 <body>
-{render_article_nav()}
+{render_nav(home_prefix="../../", blog_href="../index.html")}
 <main>
   <section class="blog-hero">
     <div class="container">

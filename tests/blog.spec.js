@@ -21,6 +21,31 @@ test.describe('Blog', () => {
     await expect(page.getByRole('link', { name: /Zero-based budgeting without spreadsheets/ })).toBeVisible();
   });
 
+  test('blog index navigation links to the landing page and blog listing', async ({ page }) => {
+    await page.goto('/blog/');
+    const nav = page.locator('nav.top .nav-links');
+
+    await expect(page.locator('nav.top .brand')).toHaveAttribute('href', '../index.html');
+    await expect(nav.getByRole('link', { name: 'Product' })).toHaveAttribute('href', '../index.html#product');
+    await expect(nav.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '../index.html#privacy');
+    await expect(nav.getByRole('link', { name: 'Method' })).toHaveAttribute('href', '../index.html#method');
+    await expect(nav.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', 'index.html');
+  });
+
+  test('blog article navigation links back to landing anchors and blog listing', async ({ page }) => {
+    await page.goto('/blog/zero-based-budgeting-without-spreadsheets/');
+    const nav = page.locator('nav.top .nav-links');
+
+    await expect(page.locator('nav.top .brand')).toHaveAttribute('href', '../../index.html');
+    await expect(nav.getByRole('link', { name: 'Product' })).toHaveAttribute('href', '../../index.html#product');
+    await expect(nav.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '../../index.html#privacy');
+    await expect(nav.getByRole('link', { name: 'Method' })).toHaveAttribute('href', '../../index.html#method');
+    await expect(nav.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '../index.html');
+
+    await nav.getByRole('link', { name: 'Product' }).click();
+    await expect(page).toHaveURL(/\/index\.html#product$/);
+  });
+
   test('article page includes metadata and readable content', async ({ page }) => {
     await page.goto('/blog/zero-based-budgeting-without-spreadsheets/');
 
