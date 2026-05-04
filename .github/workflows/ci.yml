@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      # Must match playwright.config.cjs pinning browsers under ./playwright-browsers
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright-browsers
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
@@ -22,7 +25,9 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Chromium
-        run: npx playwright install chromium
+        run: |
+          npm run install:browsers
+          npx playwright install-deps chromium
 
       - name: Test
         run: npm test
