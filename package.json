@@ -3,9 +3,10 @@
   "private": true,
   "scripts": {
     "build:blog": "python3 scripts/build_blog.py",
+    "check:analytics": "node scripts/check-google-analytics.cjs",
     "generate:blog": "python3 scripts/generate_blog_post.py",
     "install:browsers": "node scripts/install-playwright.cjs",
-    "test": "playwright test",
+    "test": "npm run check:analytics && playwright test",
     "test:ui": "playwright test --ui"
   },
   "devDependencies": {

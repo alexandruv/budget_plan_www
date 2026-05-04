@@ -21,6 +21,22 @@ INDEX_PATH = ROOT / "index.html"
 RSS_PATH = ROOT / "rss.xml"
 SITEMAP_PATH = ROOT / "sitemap.xml"
 SITE_URL = "https://alexandruv.github.io/budget_plan_www/"
+GA_MEASUREMENT_ID = "G-6HJM64ZF5Y"
+
+
+def render_google_analytics() -> str:
+    mid = GA_MEASUREMENT_ID
+    return (
+        "<!-- Google tag (gtag.js) -->\n"
+        f'<script async src="https://www.googletagmanager.com/gtag/js?id={mid}"></script>\n'
+        "<script>\n"
+        "  window.dataLayer = window.dataLayer || [];\n"
+        "  function gtag(){dataLayer.push(arguments);}\n"
+        "  gtag('js', new Date());\n"
+        "\n"
+        f"  gtag('config', '{mid}');\n"
+        "</script>"
+    )
 
 REQUIRED_FIELDS = {"title", "description", "date", "slug", "tags", "status"}
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -207,10 +223,12 @@ def render_logo(fill: str = "#e6edf3") -> str:
 
 def render_head(title: str, description: str, canonical_path: str) -> str:
     canonical = urljoin(SITE_URL, canonical_path)
+    ga = render_google_analytics()
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+{ga}
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(description)}" />

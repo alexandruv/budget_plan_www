@@ -1,0 +1,15 @@
+---
+description: Require the standard gtag (Google Analytics) snippet on every public HTML page
+globs: index.html,blog/**/*.html,scripts/build_blog.py,scripts/check-google-analytics.cjs,.github/workflows/*.yml
+alwaysApply: false
+---
+
+# Google Analytics on every public page
+
+Public HTML is served from the repo root and under `blog/`. Every such page **must** include the same Google tag (`gtag.js`) block as [`index.html`](index.html): loader script `googletagmanager.com/gtag/js?id=G-6HJM64ZF5Y` and inline `gtag('config', 'G-6HJM64ZF5Y')`.
+
+- **Landing:** edit [`index.html`](index.html) directly when changing measurement ID or snippet shape.
+- **Blog:** [`scripts/build_blog.py`](scripts/build_blog.py) injects analytics via `render_google_analytics()` into every generated blog page. Keep `GA_MEASUREMENT_ID` aligned with the landing page.
+- **Verification:** [`scripts/check-google-analytics.cjs`](scripts/check-google-analytics.cjs) fails CI and `npm test` if root `index.html` or any `blog/**/*.html` is missing the snippet. After adding new top-level HTML routes, extend that script’s target paths.
+
+Do not ship new customer-facing `.html` pages without this block unless `check-google-analytics.cjs` is updated to include them.

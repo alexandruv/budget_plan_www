@@ -30,6 +30,9 @@ jobs:
       - name: Generate post and rebuild blog
         run: python scripts/generate_blog_post.py
 
+      - name: Verify Google Analytics on published HTML
+        run: node scripts/check-google-analytics.cjs
+
       - name: Open blog draft pull request
         uses: peter-evans/create-pull-request@v7
         with:
