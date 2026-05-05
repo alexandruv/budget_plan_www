@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6HJM64ZF5Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6HJM64ZF5Y');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What to do when one category goes over budget - Budget Plan Blog</title>
+<meta name="description" content="Learn a calm, structured approach to reallocating funds within your monthly budget when unexpected expenses arise, ensuring you stay on track with your financial plan." />
+<link rel="canonical" href="https://alexandruv.github.io/budget_plan_www/blog/what-to-do-when-a-category-goes-over-budget/" />
+<link rel="alternate" type="application/rss+xml" title="Budget Plan Blog" href="https://alexandruv.github.io/budget_plan_www/rss.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-elevated: #151b23;
+  --bg-subtle: #1c2430;
+  --border: #2a3441;
+  --border-strong: #3a4655;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --text-dim: #6e7681;
+  --blue: #58a6ff;
+  --green: #3fb950;
+  --font-display: "Geist", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --r-lg: 16px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+body {
+  background:
+    radial-gradient(ellipse 50% 35% at 85% 8%, rgba(88, 166, 255, 0.14), transparent 60%),
+    radial-gradient(ellipse 45% 30% at 8% 28%, rgba(63, 185, 80, 0.08), transparent 65%),
+    var(--bg);
+}
+.container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+.mono { font-family: var(--font-mono); }
+nav.top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(13, 17, 23, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+nav.top .inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+.blog-hero { padding: 86px 0 64px; }
+.eyebrow {
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+h1 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 88px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+.lead {
+  max-width: 700px;
+  margin: 28px 0 0;
+  color: var(--text-muted);
+  font-size: 21px;
+  line-height: 1.5;
+}
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+  gap: 1px;
+  margin: 0 0 96px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.post-card {
+  min-height: 280px;
+  padding: 32px;
+  background: rgba(13, 17, 23, 0.96);
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.post-card:hover, .post-card:focus-visible { background: var(--bg-elevated); outline: none; }
+.post-card time, .post-meta {
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.post-card h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+.post-card p { color: var(--text-muted); line-height: 1.55; margin: 0; }
+.post-card .read-more {
+  margin-top: auto;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+article {
+  max-width: 780px;
+  padding-bottom: 96px;
+}
+article .post-meta { margin-top: 28px; }
+article .content {
+  margin-top: 56px;
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.72;
+}
+article .content h2 {
+  margin: 56px 0 14px;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+article .content h3 {
+  margin: 36px 0 12px;
+  font-size: 24px;
+  letter-spacing: -0.015em;
+}
+article .content p { margin: 0 0 24px; color: var(--text-muted); }
+article .content ul { margin: 0 0 28px; padding-left: 22px; color: var(--text-muted); }
+article .content li { margin: 8px 0; }
+article .content a { color: var(--blue); }
+article .content code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+article .content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+figure.blog-image {
+  margin: 40px 0;
+}
+figure.blog-image img {
+  margin-inline: auto;
+}
+.back-link {
+  display: inline-flex;
+  margin: 48px 0 0;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+@media (max-width: 720px) {
+  .container, nav.top .inner { padding-left: 20px; padding-right: 20px; }
+  nav.top .inner { align-items: flex-start; flex-direction: column; }
+  .nav-links { flex-wrap: wrap; gap: 16px 22px; }
+  .blog-hero { padding: 56px 0 44px; }
+  .lead { font-size: 17px; }
+  .post-grid { grid-template-columns: 1fr; margin-bottom: 64px; }
+  .post-card { min-height: 0; padding: 24px 20px; }
+  .post-card h2 { font-size: 25px; }
+  article .content { font-size: 17px; margin-top: 40px; }
+  article .content h2 { font-size: 27px; }
+}
+</style>
+</head>
+<body>
+<nav class="top">
+  <div class="inner">
+    <a class="brand" href="../../index.html">
+      <svg width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="9" y="10" width="22" height="4" rx="1" fill="#e6edf3"/>
+      <rect x="9" y="18" width="16" height="4" rx="1" fill="#e6edf3"/>
+      <rect x="9" y="26" width="10" height="4" rx="1" fill="#e6edf3"/>
+      <circle cx="29" cy="28" r="2.5" fill="#3fb950"/>
+    </svg>
+      <span>Budget Plan</span>
+    </a>
+    <div class="nav-links" aria-label="Primary navigation">
+      <a href="../../index.html#product">Product</a>
+      <a href="../../index.html#privacy">Privacy</a>
+      <a href="../../index.html#method">Method</a>
+      <a href="../index.html">Blog</a>
+    </div>
+  </div>
+</nav>
+<main>
+  <section class="blog-hero">
+    <div class="container">
+      <div class="eyebrow">Budget Plan blog</div>
+      <article>
+        <h1>What to do when one category goes over budget</h1>
+        <p class="lead">Learn a calm, structured approach to reallocating funds within your monthly budget when unexpected expenses arise, ensuring you stay on track with your financial plan.</p>
+        <div class="post-meta">
+          <time datetime="2026-05-05">May 05, 2026</time>
+          <span> | budgeting | privacy | habits</span>
+        </div>
+        <div class="content">
+          <p>It&#x27;s a common scenario: you&#x27;ve diligently planned your monthly budget, but then an unexpected expense pops up, or one category simply costs more than anticipated. When a category goes over budget, it can feel like a setback. However, with a calm and systematic approach, you can adjust your spending without derailing your entire financial plan. The key is to understand that budgeting is a dynamic process, not a rigid set of rules.</p>
+<figure class="blog-image"><img src="/blog/assets/expense-planning.webp" alt="A visual representation of expense planning, showing different categories and allocated amounts." loading="lazy" decoding="async" /></figure>
+<h2>Understand the Overspend</h2>
+<p>The first step is to identify exactly where and why you&#x27;ve gone over budget. This isn&#x27;t about blame; it&#x27;s about gaining clarity. Open your budgeting app and review the specific category that exceeded its allocation. Was it a one-off event, like a car repair, or a recurring expense that&#x27;s consistently higher than planned, such as groceries? Understanding the root cause will help you make informed decisions about how to adjust.</p>
+<p>For example, let&#x27;s say your &quot;Dining Out&quot; category is €50 over budget for the month. You might realize this is due to a couple of work lunches you hadn&#x27;t anticipated, or perhaps you&#x27;ve been ordering takeaway more frequently than usual. Knowing this distinction is crucial for deciding your next steps.</p>
+<h2>Review Your Other Categories</h2>
+<p>Once you understand the overspend, it&#x27;s time to look at your entire monthly budget. Most budgeting systems, like Budget Plan, allow you to see all your planned spending categories at a glance. Scan through the other categories to see if there are any areas where you have a surplus – money that you&#x27;ve allocated but haven&#x27;t yet spent.</p>
+<p>Consider categories like &quot;Entertainment,&quot; &quot;Subscriptions,&quot; or even &quot;Personal Care.&quot; Have you spent less than planned in these areas? For instance, if your &quot;Entertainment&quot; budget was €100 and you&#x27;ve only spent €30 so far, you have a €70 surplus. This surplus can be a valuable resource for covering the overspend in another category.</p>
+<figure class="blog-image"><img src="/blog/assets/expense-categorization.webp" alt="A screenshot showing expense categorization within the app, highlighting different spending areas." loading="lazy" decoding="async" /></figure>
+<h2>Reallocate Funds Strategically</h2>
+<p>Now, you can reallocate funds from a category with a surplus to the one that went over budget. In our &quot;Dining Out&quot; example, if you have a €70 surplus in &quot;Entertainment,&quot; you can move €50 of that to cover the dining out overspend. This keeps your total monthly spending within your planned limits.</p>
+<p>It&#x27;s important to do this thoughtfully. Try to reallocate from categories where you have genuine flexibility. Avoid dipping into essential categories like &quot;Rent,&quot; &quot;Utilities,&quot; or &quot;Savings&quot; if at all possible. If you don&#x27;t have enough of a surplus in other flexible categories to cover the overspend, you might need to make a more significant adjustment. This could involve slightly reducing the allocation in several other categories to free up the necessary amount.</p>
+<p>For instance, if you&#x27;re €50 over in &quot;Groceries&quot; and don&#x27;t have a large surplus elsewhere, you might decide to move €15 from &quot;Entertainment,&quot; €15 from &quot;Personal Care,&quot; and €20 from &quot;Subscriptions&quot; to cover the grocery deficit. This distributes the adjustment across multiple areas rather than creating a large hole in one.</p>
+<h2>Adjust Your Future Spending</h2>
+<p>After reallocating funds for the current month, consider how this overspend might impact future months. If the overspend was due to a one-off event, like a medical bill, you might not need to make any long-term changes. However, if it highlights a consistent pattern – for example, if your &quot;Groceries&quot; budget is consistently too low – you&#x27;ll need to adjust your budget for the following month.</p>
+<p>This might mean permanently increasing the allocation for that category and then finding a way to reduce spending in another area to compensate, or adjusting your overall savings goals for a period. The goal is to make your budget realistic and sustainable for your actual spending habits.</p>
+<figure class="blog-image"><img src="/blog/assets/income-planning.webp" alt="A visual showing income planning, with different sources and amounts." loading="lazy" decoding="async" /></figure>
+<h2>Learn and Refine</h2>
+<p>Every time you encounter an overspend, it&#x27;s an opportunity to learn more about your financial habits and refine your budgeting process. Don&#x27;t view it as a failure. Instead, see it as valuable data that helps you create a more accurate and effective budget moving forward.</p>
+<p>Perhaps you consistently underestimate how much you spend on fuel, or you find that your &quot;Clothing&quot; budget is rarely touched. Use this information to tweak your category allocations. The more you practice this process of reviewing, reallocating, and refining, the more confident and in control you&#x27;ll feel about your money.</p>
+<figure class="blog-image"><img src="/blog/assets/month-close-report-summary.webp" alt="A report summary showing month-end financial overview." loading="lazy" decoding="async" /></figure>
+<h2>Your Concrete Action Today</h2>
+<p>Take a moment right now to open your budgeting app and review your current month&#x27;s spending. Identify any categories that are close to or already over budget. If you find one, look for a flexible category with a surplus and make a small reallocation to bring your spending back in line with your plan. This simple adjustment will reinforce your budgeting habits and help you navigate unexpected spending with greater ease.</p>
+        </div>
+        <a class="back-link" href="../index.html">Back to blog</a>
+      </article>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">&copy; 2026 | Every dollar has a job.</div>
+</footer>
+</body>
+</html>
