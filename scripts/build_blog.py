@@ -390,7 +390,7 @@ h1 {{
 }}
 .post-grid {{
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
   gap: 1px;
   margin: 0 0 96px;
   background: var(--border);
