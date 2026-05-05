@@ -1,4 +1,5 @@
 {
+  "_note": "The weekly AI generator no longer consumes this list — it picks the next unused file in blog/assets/ and titles the post to match that screenshot. Keep this file as human brainstorming only.",
   "topics": [
     {
       "slug_hint": "zero-based-budgeting-without-spreadsheets",

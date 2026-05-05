@@ -10,7 +10,9 @@ How drafts are written, where files live, and what ships to readers.
 
 ## Cadence: one AI-assisted draft per week
 
-Automation opens **one** pull request per week with a fresh Gemini draft (when unused topics remain in `content/blog_topics.json`). Schedule: **Mondays at 07:00 UTC**, via [`.github/workflows/generate-blog-post.yml`](.github/workflows/generate-blog-post.yml). You can also trigger the same workflow manually (**Actions → Generate blog post → Run workflow**). Merge after your usual editorial review.
+Automation opens **one** pull request per week with a fresh Gemini draft **when at least one image under `blog/assets/` is not yet used in any `posts/*.md` file** (first unused by sorted filename). Schedule: **Mondays at 07:00 UTC**, via [`.github/workflows/generate-blog-post.yml`](.github/workflows/generate-blog-post.yml). You can also trigger the same workflow manually (**Actions → Generate blog post → Run workflow**). Merge after your usual editorial review.
+
+**How the generator picks content:** It chooses the next **unused** screenshot, sends the **image pixels** to the model (vision), derives the post **slug** from the filename stem (e.g. `expense-planning.webp` → slug `expense-planning`), and requires **exactly one** Markdown embed for that URL. The file [`content/blog_topics.json`](content/blog_topics.json) is an optional human backlog only; the bot does **not** select topics from it.
 
 ### Images: weekly generator, local agents, and humans
 
@@ -18,8 +20,8 @@ The same rules apply to **GitHub Actions (Gemini)**, **IDE agents**, and **manua
 
 1. **Location and format:** Screenshots live under `blog/assets/` as **`.webp`** files (optimized for the web). Do not embed URLs to files that are not committed there.
 2. **Markdown syntax:** Use exactly `![meaningful alt text](/blog/assets/<filename>.webp)`. Only **site-root** paths starting with `/blog/assets/` are valid; [`scripts/build_blog.py`](scripts/build_blog.py) rejects anything else.
-3. **Allowed URLs at generation time:** [`scripts/generate_blog_post.py`](scripts/generate_blog_post.py) scans `blog/assets/` and injects the **complete list** of allowed image URLs into the Gemini prompt. The model must only use URLs from that list—no invented filenames or wrong extensions.
-4. **Topic alignment:** See §1 below: filenames (without extension) guide what the post should emphasize.
+3. **Allowed URLs at generation time:** the script selects **one** unused `/blog/assets/...` file per run, injects that URL (and image vision) into Gemini, and validates a **single** embed for that URL only.
+4. **Topic alignment:** see §1 — filenames (without extension) guide emphasis; **automation drafts** must be **about that one screen** only.
 
 For a one-line reminder also loaded into the model prompt, see [`content/blog_style.md`](content/blog_style.md) (**Screenshots**). Project-wide agent context lives in [`AGENTS.md`](AGENTS.md).
 
@@ -29,7 +31,7 @@ Treat each filename in `blog/assets/` as the source of truth for what to emphasi
 
 - **Parsing:** Take the filename (e.g., `expense-categories.webp`), drop the extension, replace hyphens with spaces → primary keyword phrase.
 - **Constraint:** If the image is `overbudget.webp`, the post must focus on the psychology and mechanics of handling overspending inside BudgetPlan.
-- **Embed:** Place the screenshot immediately after the H1 or the first paragraph. Example: `![Short caption](/blog/assets/overbudget.webp)`.
+- **Embed:** Exactly **one** screenshot per article for automation drafts. Place it immediately after the H1 or the first paragraph. Example: `![Short caption](/blog/assets/overbudget.webp)`.
 
 ## 2. Persona: “The pragmatic developer”
 
@@ -55,9 +57,10 @@ Write as **Alex**, a software architect born in 1981.
 
 ## 5. Length and structure
 
-- **Length:** Aim for roughly **650–850 words**, treating **±50 words** as acceptable slack around the upper bound.
+- **Length (manual long-form):** Aim for roughly **650–850 words**, treating **±50 words** as acceptable slack around the upper bound.
+- **Length (weekly AI drafts):** About **400–600 words** — short, one screenshot, 2–4 sections (see `scripts/generate_blog_post.py`).
 - **Introduction:** Short—problem and direction in a tight opening (two or three sentences is enough).
-- **Screenshot:** When using `blog/assets`, place it right after the H1 or first paragraph.
+- **Screenshot:** When using `blog/assets`, place it right after the H1 or first paragraph (**one** image for automation-generated drafts).
 - **Body:** Practical utility; realistic monthly categories and behaviour beat abstract advice.
 - **Close:** Finish with something like **“One thing to try today”—**a single concrete action, not a hypey sales push.
 
