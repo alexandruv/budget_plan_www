@@ -1,5 +1,6 @@
 .claude/
 .DS_Store
+/start-local-server.sh
 node_modules/
 playwright-report/
 test-results/
