@@ -12,7 +12,7 @@ When editing **`posts/*.md`**, **`content/blog_topics.json`**, or **`content/blo
 
 - Store screenshots in **`blog/assets/`** as optimized **`.webp`** files.
 - Embed only with **site-root** Markdown: `![alt](/blog/assets/filename.webp)`. Relative `../assets/` paths are invalid and break [`scripts/build_blog.py`](../../scripts/build_blog.py).
-- **`scripts/generate_blog_post.py`** scans `blog/assets/` and passes the **exact list** of `/blog/assets/...` URLs to Gemini. Generated drafts must use only those URLs.
+- **`scripts/generate_blog_post.py`** picks the **next unused** asset (not already referenced in `posts/*.md`), sends it to Gemini with **vision**, and requires **exactly one** `/blog/assets/...` embed per draft.
 
 ## Automation
 

@@ -24,8 +24,8 @@ Budget Plan publishes practical, privacy-first personal finance writing for peop
 
 - Screenshots in shipped posts use files under `blog/assets/` as **WebP** (`.webp`), optimized for size.
 - In Markdown use **only** site-root URLs: `![Short caption](/blog/assets/your-file.webp)`. Never use relative paths like `../assets/...`.
-- You will be given an explicit list of allowed `/blog/assets/...` URLs when images exist. **Embed only URLs from that list** with matching extensions—do not invent filenames or swap `.webp` for `.png`/`.jpg` unless that exact URL appears in the list.
-- When a topic matches an asset filename (see contributor docs: image-to-topic mapping), place that image **immediately after the H1 or the first paragraph**.
+- **Weekly automation:** you will receive **one** assigned image URL and the image itself; the article must be **only** about that screen, with **exactly one** embed of that URL — no other `/blog/assets/` images.
+- For manual posts not from the generator, still use only allowed URLs and keep screenshots meaningful; avoid cluttering with many images unless editorially necessary.
 
 ## Forbidden Output
 
