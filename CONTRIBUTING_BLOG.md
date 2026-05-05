@@ -65,3 +65,10 @@ Write as **Alex**, a software architect born in 1981.
 - **Close:** Finish with something like **“One thing to try today”—**a single concrete action, not a hypey sales push.
 
 Machine-generated drafts also follow `content/blog_style.md` and the requirements in `scripts/generate_blog_post.py`; this document is the reference for **BudgetPlan** naming, **absolute** asset URLs, linking, SEO shape, and EU-safe external citations.
+
+## 6. Checks before merging
+
+- Run `npm run test:blog` after changing `scripts/build_blog.py`, `scripts/generate_blog_post.py`, post Markdown, or screenshot assets.
+- Run `npm run check:analytics` after generated HTML changes.
+- Run `npm test` before larger layout changes or before merging PRs that touch homepage/blog rendering.
+- Confirm generated AI drafts include exactly one screenshot and that it matches the selected asset filename.

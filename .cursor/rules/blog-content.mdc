@@ -17,3 +17,5 @@ When editing **`posts/*.md`**, **`content/blog_topics.json`**, or **`content/blo
 ## Automation
 
 Weekly draft PR: [`.github/workflows/generate-blog-post.yml`](../../.github/workflows/generate-blog-post.yml). Rebuild static output with `npm run build:blog` after changing post sources.
+
+Run `npm run test:blog` after changing blog generation/build rules. It covers Markdown image rendering, one-image validation, asset rotation, and preserving `blog/assets/`.

@@ -8,6 +8,7 @@ This file orients **AI coding agents**, **weekly blog automation**, and **human 
 - **Generator:** [`scripts/generate_blog_post.py`](scripts/generate_blog_post.py) — picks the **next unused** image in [`blog/assets/`](blog/assets/) (filenames already embedded in [`posts/*.md`](posts/) are skipped), sends the image to Gemini (multimodal) plus style rules, enforces **exactly one** screenshot per post, validates output, runs [`scripts/build_blog.py`](scripts/build_blog.py). [`content/blog_topics.json`](content/blog_topics.json) is optional human-only backlog; the bot does not read it for topic selection.
 - **Style injected into the model:** [`content/blog_style.md`](content/blog_style.md) (includes **Screenshots** rules).
 - **After changing Markdown sources:** run `npm run build:blog` so `blog/**/*.html`, RSS, and related outputs stay consistent.
+- **Regression checks:** run `npm run test:blog` after changing generator/build logic. It verifies Markdown image rendering, one-image validation, image rotation, and that `blog/assets/` survives rebuilds.
 
 ## Blog images (non‑negotiable)
 

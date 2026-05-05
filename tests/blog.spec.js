@@ -7,6 +7,10 @@ test.describe('Blog', () => {
     await expect(page.locator('#nav-links').getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
     await expect(page.locator('#blog')).toBeVisible();
     await expect(page.locator('#blog').getByRole('heading', { name: 'Blog' })).toBeVisible();
+    await expect(page.locator('#blog').getByRole('link', { name: /Accurately Track Expenses Daily with Budget Plan/ })).toHaveAttribute(
+      'href',
+      'blog/accurately-track-expenses-daily/'
+    );
     await expect(page.locator('#blog').getByRole('link', { name: /Zero-based budgeting without spreadsheets/ })).toHaveAttribute(
       'href',
       'blog/zero-based-budgeting-without-spreadsheets/'
@@ -18,6 +22,7 @@ test.describe('Blog', () => {
 
     await expect(page).toHaveTitle(/Budget Plan Blog/);
     await expect(page.getByRole('heading', { name: 'Budgeting that respects your time and your privacy.' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Accurately Track Expenses Daily with Budget Plan/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Zero-based budgeting without spreadsheets/ })).toBeVisible();
   });
 
@@ -60,14 +65,28 @@ test.describe('Blog', () => {
     );
   });
 
+  test('generated image-first post renders exactly one article image', async ({ page }) => {
+    await page.goto('/blog/accurately-track-expenses-daily/');
+
+    await expect(page).toHaveTitle(/Accurately Track Expenses Daily with Budget Plan/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Accurately Track Expenses Daily with Budget Plan' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Your Daily Spending Dashboard' })).toBeVisible();
+
+    const articleImages = page.locator('figure.blog-image img');
+    await expect(articleImages).toHaveCount(1);
+    await expect(articleImages.first()).toHaveAttribute('src', '/blog/assets/accurately-track-expenses-daily.webp');
+    await expect(articleImages.first()).toHaveAttribute('alt', /Log Spend/);
+  });
+
   test('blog cards remain readable on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/blog/');
 
     const firstCard = page.getByRole('link', { name: /Zero-based budgeting without spreadsheets/ });
     await expect(firstCard).toBeVisible();
+    await expect(page.getByRole('link', { name: /Accurately Track Expenses Daily with Budget Plan/ })).toBeVisible();
 
     const gridColumns = await page.locator('.post-grid').evaluate((el) => window.getComputedStyle(el).gridTemplateColumns);
-    expect(gridColumns.split(' ').length).toBe(1);
+    expect(gridColumns.split(' ').filter(Boolean).length).toBe(1);
   });
 });
