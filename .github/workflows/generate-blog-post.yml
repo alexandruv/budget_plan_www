@@ -35,9 +35,11 @@ jobs:
         run: node scripts/check-google-analytics.cjs
 
       - name: Open blog draft pull request
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           branch: ai/blog-post
+          base: main
           delete-branch: true
           commit-message: "Add AI-assisted blog draft"
           title: "Add AI-assisted blog draft"
@@ -50,3 +52,16 @@ jobs:
             - Confirm the article has no fake claims, fake statistics, or personal financial advice.
             - Confirm the tone matches Budget Plan: practical, calm, privacy-first.
             - Confirm the rendered blog page and homepage card look correct.
+
+      - name: Log pull request outcome
+        env:
+          CPR_OP: ${{ steps.cpr.outputs.pull-request-operation }}
+          CPR_URL: ${{ steps.cpr.outputs.pull-request-url }}
+          CPR_NUM: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "create-pull-request operation: ${CPR_OP:-<empty>}"
+          echo "pull-request-number: ${CPR_NUM:-<empty>}"
+          echo "pull-request-url: ${CPR_URL:-<empty>}"
+          if [ -z "$CPR_URL" ]; then
+            echo "If no PR was opened: https://github.com/${{ github.repository }}/compare/main...ai/blog-post"
+          fi

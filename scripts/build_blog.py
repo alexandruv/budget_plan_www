@@ -707,8 +707,15 @@ def build() -> None:
     posts = load_posts()
 
     if BLOG_DIR.exists():
-        shutil.rmtree(BLOG_DIR)
-    BLOG_DIR.mkdir(parents=True)
+        for path in list(BLOG_DIR.iterdir()):
+            if path.name == "assets":
+                continue
+            if path.is_dir():
+                shutil.rmtree(path)
+            elif path.is_file():
+                path.unlink()
+    else:
+        BLOG_DIR.mkdir(parents=True)
 
     (BLOG_DIR / "index.html").write_text(render_blog_index(posts), encoding="utf-8")
     for post in posts:
