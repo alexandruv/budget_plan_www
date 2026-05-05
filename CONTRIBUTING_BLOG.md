@@ -5,20 +5,31 @@ How drafts are written, where files live, and what ships to readers.
 ## Repository and published URLs
 
 - **Markdown sources:** `posts/*.md` (YAML front matter + body). After edits, run `npm run build:blog` so HTML, RSS, and related outputs stay in sync.
-- **Screenshots:** `blog/assets/`. Embed images only with **site-root absolute URLs** (required by the builder), e.g. `![Caption](/blog/assets/expense-categories.jpg)`. Relative paths such as `../assets/...` will fail validation.
+- **Screenshots:** `blog/assets/`. Store them as **optimized WebP** (`.webp`). Embed images only with **site-root absolute URLs** (required by the builder), e.g. `![Caption](/blog/assets/expense-categories.webp)`. Relative paths such as `../assets/...` will fail validation.
 - **Live site:** Posts are reachable at [https://budgetplan.pomeloapps.com/blog/](https://budgetplan.pomeloapps.com/blog/) once deployed.
 
 ## Cadence: one AI-assisted draft per week
 
 Automation opens **one** pull request per week with a fresh Gemini draft (when unused topics remain in `content/blog_topics.json`). Schedule: **Mondays at 07:00 UTC**, via [`.github/workflows/generate-blog-post.yml`](.github/workflows/generate-blog-post.yml). You can also trigger the same workflow manually (**Actions → Generate blog post → Run workflow**). Merge after your usual editorial review.
 
+### Images: weekly generator, local agents, and humans
+
+The same rules apply to **GitHub Actions (Gemini)**, **IDE agents**, and **manual editing**:
+
+1. **Location and format:** Screenshots live under `blog/assets/` as **`.webp`** files (optimized for the web). Do not embed URLs to files that are not committed there.
+2. **Markdown syntax:** Use exactly `![meaningful alt text](/blog/assets/<filename>.webp)`. Only **site-root** paths starting with `/blog/assets/` are valid; [`scripts/build_blog.py`](scripts/build_blog.py) rejects anything else.
+3. **Allowed URLs at generation time:** [`scripts/generate_blog_post.py`](scripts/generate_blog_post.py) scans `blog/assets/` and injects the **complete list** of allowed image URLs into the Gemini prompt. The model must only use URLs from that list—no invented filenames or wrong extensions.
+4. **Topic alignment:** See §1 below: filenames (without extension) guide what the post should emphasize.
+
+For a one-line reminder also loaded into the model prompt, see [`content/blog_style.md`](content/blog_style.md) (**Screenshots**). Project-wide agent context lives in [`AGENTS.md`](AGENTS.md).
+
 ## 1. Core workflow: image-to-topic logic
 
 Treat each filename in `blog/assets/` as the source of truth for what to emphasize.
 
-- **Parsing:** Take the filename (e.g., `expense-categories.jpg`), drop the extension, replace hyphens with spaces → primary keyword phrase.
-- **Constraint:** If the image is `overbudget.jpg`, the post must focus on the psychology and mechanics of handling overspending inside BudgetPlan.
-- **Embed:** Place the screenshot immediately after the H1 or the first paragraph. Example: `![Short caption](/blog/assets/overbudget.jpg)`.
+- **Parsing:** Take the filename (e.g., `expense-categories.webp`), drop the extension, replace hyphens with spaces → primary keyword phrase.
+- **Constraint:** If the image is `overbudget.webp`, the post must focus on the psychology and mechanics of handling overspending inside BudgetPlan.
+- **Embed:** Place the screenshot immediately after the H1 or the first paragraph. Example: `![Short caption](/blog/assets/overbudget.webp)`.
 
 ## 2. Persona: “The pragmatic developer”
 

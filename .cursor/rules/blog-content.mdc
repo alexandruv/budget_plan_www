@@ -1,0 +1,19 @@
+---
+description: Blog posts, weekly Gemini generation, and screenshot assets (WebP, absolute URLs)
+globs: posts/**/*.md,content/blog_topics.json,content/blog_style.md,CONTRIBUTING_BLOG.md,scripts/generate_blog_post.py,blog/assets/*,AGENTS.md
+alwaysApply: false
+---
+
+# Blog content and weekly automation
+
+When editing **`posts/*.md`**, **`content/blog_topics.json`**, or **`content/blog_style.md`**, or when adding screenshots under **`blog/assets/`**, follow [`CONTRIBUTING_BLOG.md`](../../CONTRIBUTING_BLOG.md) and [`AGENTS.md`](../../AGENTS.md).
+
+## Images
+
+- Store screenshots in **`blog/assets/`** as optimized **`.webp`** files.
+- Embed only with **site-root** Markdown: `![alt](/blog/assets/filename.webp)`. Relative `../assets/` paths are invalid and break [`scripts/build_blog.py`](../../scripts/build_blog.py).
+- **`scripts/generate_blog_post.py`** scans `blog/assets/` and passes the **exact list** of `/blog/assets/...` URLs to Gemini. Generated drafts must use only those URLs.
+
+## Automation
+
+Weekly draft PR: [`.github/workflows/generate-blog-post.yml`](../../.github/workflows/generate-blog-post.yml). Rebuild static output with `npm run build:blog` after changing post sources.

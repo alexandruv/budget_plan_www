@@ -61,8 +61,9 @@ def build_prompt(topic: dict[str, str], existing_posts: list[dict[str, str]], to
     asset_urls = list_blog_asset_urls()
     if asset_urls:
         images_policy = (
-            "Screenshots live under blog/assets/. If you embed images, use Markdown "
-            "`![short caption](/blog/assets/filename.ext)` only with these exact URLs:\n"
+            "Screenshots live under blog/assets/ (typically optimized .webp files). "
+            "If you embed images, use Markdown `![short caption](/blog/assets/filename.webp)` "
+            "only with these exact URLs—do not invent names or change extensions:\n"
             + "\n".join(f"- {url}" for url in asset_urls)
         )
     else:

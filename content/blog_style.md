@@ -20,6 +20,13 @@ Budget Plan publishes practical, privacy-first personal finance writing for peop
 - Use short paragraphs. Long blocks of text are not acceptable.
 - End with a practical closing section, not a sales pitch.
 
+## Screenshots (read with the `Images:` block in your instructions)
+
+- Screenshots in shipped posts use files under `blog/assets/` as **WebP** (`.webp`), optimized for size.
+- In Markdown use **only** site-root URLs: `![Short caption](/blog/assets/your-file.webp)`. Never use relative paths like `../assets/...`.
+- You will be given an explicit list of allowed `/blog/assets/...` URLs when images exist. **Embed only URLs from that list** with matching extensions—do not invent filenames or swap `.webp` for `.png`/`.jpg` unless that exact URL appears in the list.
+- When a topic matches an asset filename (see contributor docs: image-to-topic mapping), place that image **immediately after the H1 or the first paragraph**.
+
 ## Forbidden Output
 
 - Placeholder text.
