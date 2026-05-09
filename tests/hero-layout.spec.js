@@ -19,15 +19,17 @@ test.describe('Landing page mobile layout', () => {
     expect(opened).toBe('flex');
   });
 
-  test('hero phone stack is removed on narrow phones to avoid dead vertical space', async ({ page }) => {
+  test('hero phone stack remains visible and bounded on narrow phones', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/index.html');
 
     const stack = page.getByTestId('phone-stack');
-    const isHidden = await stack.evaluate((el) => window.getComputedStyle(el).display === 'none');
-    const height = await stack.evaluate((el) => el.offsetHeight);
-    expect(isHidden).toBe(true);
-    expect(height).toBe(0);
+    const box = await stack.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box.width).toBeGreaterThan(300);
+    expect(box.width).toBeLessThanOrEqual(340);
+    expect(box.height).toBeGreaterThan(200);
+    expect(box.height).toBeLessThanOrEqual(260);
   });
 
   test('hero phone stack stays bounded on small-tablet width', async ({ page }) => {
